@@ -1,0 +1,18 @@
+
+-- Machines #0
+-- main.newCCBalancerWrapper.t3@0
+.outputs
+.state graph
+q00 1 ? structLBRACERBRACE q02
+q01 1 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- watcher_555
+.outputs
+.state graph
+q10 0 ? structLBRACERBRACE q11
+q11 0 ! structLBRACERBRACE q12
+.marking q10
+.end

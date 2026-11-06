@@ -1,0 +1,569 @@
+[
+ {
+  "name": "blocking_cockroach_1462",
+  "title": "cockroach #1462",
+  "typ": "Blocking / Mixed Deadlock / Channel & WaitGroup",
+  "desc": "`s.stop.Wait()` in `Stop()` not guaranteed to be invoked The test cases used here have omitted more details compared to the actual code in the real word project. This could potentially introduce new bugs. You can find further discussions regarding this matter [here](https://github.com/timmyyuan/gobench/issues/7).",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 3
+ },
+ {
+  "name": "blocking_cockroach_2448",
+  "title": "cockroach #2448",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "This is some description from previous researchers >  This bug is caused by two goroutines waiting for each other >  to unblock their channels. > >  (1) MultiRaft sends the commit event for the Membership change > >  (2) store.processRaft takes it and begins processing > >  (3) another command commits and triggers another sendEvent, but this blocks since store.processRaft isn't ready for another select. Consequently the main MultiRaft loop is waiting for that as well. > >  (4) the Membership change was applied to the range, and the store now tries to execute the callback > >  (5) the callback tries to write to callbackChan, but that is consumed by the MultiRaft loop, which is currently waiting for store.processRaft to consume from the events channel, which it will only do after the callback has completed. Possible intervening",
+  "ips": [
+   "IP-1",
+   "IP-3",
+   "IP-7"
+  ],
+  "findings": [
+   "ch1: a receive exists but no goroutine ever sends on it",
+   "ch2: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 3
+ },
+ {
+  "name": "blocking_cockroach_24808",
+  "title": "cockroach #24808",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "This is some description from developers > When we Start the Compactor, it may already have received > Suggestions, deadlocking the previously blocking write to a full > channel.",
+  "ips": [],
+  "findings": [
+   "ch1: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [
+   "1"
+  ],
+  "ngor": 1,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_cockroach_25456",
+  "title": "cockroach #25456",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "This is some description from developers > When CheckConsistency returns an error, the queue checks whether the store is draining to decide whether the error is worth logging. Unfortunately this check was incorrect and would block until the store actually started draining. This bug is because of channel communication mismatch",
+  "ips": [
+   "IP-7"
+  ],
+  "findings": [
+   "ch0: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_cockroach_35073",
+  "title": "cockroach #35073",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "This is some description from developers > Previously, the outbox could fail during startup without closing its RowChannel. This could lead to deadlocked flows in rare cases. Channel communication mismatch",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "ch0: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [
+   "chanBufSize"
+  ],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_cockroach_35931",
+  "title": "cockroach #35931",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "This is some description from developers > Previously, if a processor that reads from multiple inputs was waiting on one input to provide more data, and the other input was full, and both inputs were connected to inbound streams, it was possible to deadlock the system during flow cancellation when trying to propagate the cancellation metadata messages into the flow. The problem was that the cancellation method wrote metadata messages to each inbound stream one at a time, so if the first one was full, the canceller would block and never send a cancellation message to the second stream, which was the one actually being read from. Channel mismatch",
+  "ips": [],
+  "findings": [
+   "ch0: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [
+   "chanBufSize"
+  ],
+  "ngor": 1,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_etcd_6857",
+  "title": "etcd #6857",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "After Stop() makes run() return (it closes n.done), a later Status() call sends its request on n.status. Nobody receives it any more, so that goroutine leaks.",
+  "ips": [
+   "IP-1",
+   "IP-3",
+   "IP-4",
+   "IP-8"
+  ],
+  "findings": [
+   "c (reply, run): a send exists but no goroutine ever receives from it",
+   "c (reply, Status): a receive exists but no goroutine ever sends on it",
+   "a channel is passed as a value: dingo-hunter loses the alias, so a reply channel can show up as two channels (the red \u26a0 marks on them are a tool artefact)"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 5
+ },
+ {
+  "name": "blocking_etcd_6873",
+  "title": "etcd #6873",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "Possible intervening",
+  "ips": [
+   "IP-1",
+   "IP-4",
+   "IP-7"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [
+   "1"
+  ],
+  "ngor": 3,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_etcd_7443",
+  "title": "etcd #7443",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "Line 161 holds mutex at 158 but try to send messages to `notifyCh` at 161. `Close()` goroutine blocked at line 172 for acquiring the same mutex.",
+  "ips": [],
+  "findings": [
+   "ch0: a send exists but no goroutine ever receives from it",
+   "ch2: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [
+   "1"
+  ],
+  "ngor": 3,
+  "nchan": 3
+ },
+ {
+  "name": "blocking_etcd_7902",
+  "title": "etcd #7902",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "At least two goroutines are needed to trigger this bug, one is leader and the other is follower. Both the leader and the follower execute the code above. If the follower acquires mu.Lock() firstly and enter rc.release(), it will be blocked at <- rcNextc (nextc). Only the leader can execute close(nextc) to unblock the follower inside rc.release(). However, in order to invoke rc.release(), the leader needs to acquires mu.Lock().   The fix is to remove the lock and unlock around rc.release().",
+  "ips": [],
+  "findings": [
+   "no goroutine communicates in the model (only the channel machine was produced)"
+  ],
+  "caps": [],
+  "ngor": 0,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_grpc_1460",
+  "title": "grpc #1460",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "When gRPC keepalives are enabled (which isn't the case by default at this time) and PermitWithoutStream is false (the default), the client can deadlock when transitioning between having no active stream and having one active stream.The keepalive() goroutine is stuck at \u201c<-t.awakenKeepalive\u201d, while the main goroutine is stuck in NewStream() on t.mu.Lock().",
+  "ips": [
+   "IP-1"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_grpc_3017",
+  "title": "grpc #3017",
+  "typ": "Blocking / Resource Deadlock / Double locking",
+  "desc": "Line 65 missing unlock",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_grpc_660",
+  "title": "grpc #660",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "The parent function could return without draining the done channel.",
+  "ips": [
+   "IP-1",
+   "IP-3",
+   "IP-7",
+   "IP-8"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_istio_16224",
+  "title": "istio #16224",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "A goroutine holds a mutex at line 91 and then blocked at line 93. Another goroutine attempt acquire the same mutex at line 101 to further drains the same channel at 103.",
+  "ips": [
+   "IP-1",
+   "IP-3",
+   "IP-7"
+  ],
+  "findings": [
+   "ch1: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 3
+ },
+ {
+  "name": "blocking_kubernetes_10182",
+  "title": "kubernetes #10182",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "This is a lock-channel bug. goroutine 1 is blocked on a lock held by goroutine 3, while goroutine 3 is blocked on sending message to ch, which is read by goroutine 1.",
+  "ips": [
+   "IP-1",
+   "IP-7"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_kubernetes_11298",
+  "title": "kubernetes #11298",
+  "typ": "Blocking / Communication Deadlock / Channel & Condition Variable",
+  "desc": "Some description from developers or pervious reseachers > n.node used the n.lock as underlaying locker. The service loop initially locked it, the Notify function tried to lock it before calling n.node.Signal, leading to a dead-lock. `n.cond.Signal()` at line 59 and line 81 are not guaranteed to `n.cond.Wait` at line 56.",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_kubernetes_26980",
+  "title": "kubernetes #26980",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "A goroutine holds a mutex at line 24 and blocked at line 35. Another goroutine blocked at line 58 by acquiring the same mutex.",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_kubernetes_38669",
+  "title": "kubernetes #38669",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "No sender for line 33.",
+  "ips": [
+   "IP-3",
+   "IP-7"
+  ],
+  "findings": [
+   "ch1: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [
+   "chanSize",
+   "chanSize"
+  ],
+  "ngor": 2,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_kubernetes_6632",
+  "title": "kubernetes #6632",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "This is a lock-channel bug. When resetChan is full, WriteFrame holds the lock and blocks on the channel. Then monitor() fails to close the resetChan because lock is already held by WriteFrame.   Fix: create a goroutine to drain the channel",
+  "ips": [
+   "IP-1"
+  ],
+  "findings": [
+   "ch0: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_kubernetes_70277",
+  "title": "kubernetes #70277",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "Some description from developers or pervious reseachers > wait.poller() returns a function with type WaitFunc. > the function creates a goroutine and the goroutine only > quits when after or done closed. The doneCh defined at line 70 is never closed.",
+  "ips": [],
+  "findings": [
+   "ch0: a receive exists but no goroutine ever sends on it",
+   "ch1: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 3
+ },
+ {
+  "name": "blocking_moby_27782",
+  "title": "moby #27782",
+  "typ": "Blocking / Communication Deadlock / Channel & Condition Variable",
+  "desc": "Possible intervening",
+  "ips": [
+   "IP-3",
+   "IP-7"
+  ],
+  "findings": [
+   "ch1: a send exists but no goroutine ever receives from it",
+   "ch2: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 3
+ },
+ {
+  "name": "blocking_moby_28462",
+  "title": "moby #28462",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "There are three goroutines mentioned in the bug report Moby#28405. Actually, only two goroutines are needed to trigger this bug. This bug is another example where lock and channel are mixed with each other.  Moby#28405 : https://github.com/moby/moby/issues/28405",
+  "ips": [
+   "IP-1"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_moby_29733",
+  "title": "moby #29733",
+  "typ": "Blocking / Communication Deadlock / Condition Variable",
+  "desc": "`Wait()` at line 21 has no corresponding `Signal()`.",
+  "ips": [],
+  "findings": [
+   "ch0: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 2
+ },
+ {
+  "name": "blocking_moby_30408",
+  "title": "moby #30408",
+  "typ": "Blocking / Communication Deadlock / Condition Variable",
+  "desc": "`Wait()` at line 22 has no corresponding `Signal()`.",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_moby_33293",
+  "title": "moby #33293",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "Possible intervening",
+  "ips": [],
+  "findings": [
+   "ch0: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_moby_4395",
+  "title": "moby #4395",
+  "typ": "Blocking / Communication Deadlock / Channel",
+  "desc": "The anonyous goroutine could be waiting on sending to the channel which might never be drained.",
+  "ips": [],
+  "findings": [
+   "ch: a send exists but no goroutine ever receives from it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "blocking_serving_2137",
+  "title": "serving #2137",
+  "typ": "Blocking / Mixed Deadlock / Channel & Lock",
+  "desc": "Possible intervening",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "ch0: a send exists but no goroutine ever receives from it",
+   "ch1: a send exists but no goroutine ever receives from it",
+   "ch2: a send exists but no goroutine ever receives from it",
+   "ch3: a send exists but no goroutine ever receives from it",
+   "ch4: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [
+   "1",
+   "queueDepth+maxConcurrency",
+   "maxConcurrency"
+  ],
+  "ngor": 2,
+  "nchan": 5
+ },
+ {
+  "name": "nonblocking_cockroach_4407",
+  "title": "cockroach #4407  (non-blocking)",
+  "typ": "NonBlocking / Go-Specific / WaitGroup",
+  "desc": "",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_etcd_3077",
+  "title": "etcd #3077  (non-blocking)",
+  "typ": "NonBlocking / Go-Specific / Misuse channel",
+  "desc": "",
+  "ips": [
+   "IP-1",
+   "IP-3"
+  ],
+  "findings": [
+   "ch0: a receive exists but no goroutine ever sends on it",
+   "ch2: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 3,
+  "nchan": 4
+ },
+ {
+  "name": "nonblocking_grpc_2371",
+  "title": "grpc #2371  (non-blocking)",
+  "typ": "NonBlocking / Go-Specific / Misuse channel",
+  "desc": "",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [
+   "1"
+  ],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_istio_8967",
+  "title": "istio #8967  (non-blocking)",
+  "typ": "NonBlocking / Go-Specific / Misuse channel",
+  "desc": "",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_kubernetes_13058",
+  "title": "kubernetes #13058  (non-blocking)",
+  "typ": "NonBlocking / Go-Specific / WaitGroup",
+  "desc": "",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step), or in the lock / WaitGroup / Cond part, which the CFSM does not model"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_kubernetes_79631",
+  "title": "kubernetes #79631  (non-blocking)",
+  "typ": "NonBlocking / Traditional / Data race",
+  "desc": "",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "ch0: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_kubernetes_81148",
+  "title": "kubernetes #81148  (non-blocking)",
+  "typ": "NonBlocking / Traditional / Data race",
+  "desc": "",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_kubernetes_82239",
+  "title": "kubernetes #82239  (non-blocking)",
+  "typ": "NonBlocking / Traditional / Data race",
+  "desc": "",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [],
+  "ngor": 2,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_kubernetes_88331",
+  "title": "kubernetes #88331  (non-blocking)",
+  "typ": "NonBlocking / Traditional / Data race",
+  "desc": "",
+  "ips": [
+   "IP-3"
+  ],
+  "findings": [
+   "ch0: a receive exists but no goroutine ever sends on it"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 1
+ },
+ {
+  "name": "nonblocking_serving_6472",
+  "title": "serving #6472  (non-blocking)",
+  "typ": "NonBlocking / Traditional / Data race",
+  "desc": "",
+  "ips": [],
+  "findings": [
+   "no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)"
+  ],
+  "caps": [],
+  "ngor": 1,
+  "nchan": 2
+ }
+]

@@ -1,0 +1,62 @@
+ssabuild: 2026/10/31 14:26:41 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:41 Skip package: time (Time not supported)
+ssabuild: 2026/10/31 14:26:41 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:41 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+   # store (global) *???.ForerverTestTimeout = ???.20000000000:time.Duration of type time.Duration
+++ call.toplevel main()
+   New channel main.main.t0@0 { type: struct{} } by main.main.t0@0 at (unknown)
+               ^ in role main
+   # t1 = Alloc new WaitFunc (waitFunc) of type func(done <-chan struct{}) <-chan struct{}
+   main.main.t2 = *ForerverTestTimeout (global) of type *time.Duration
+    ^ i.e. ???.ForerverTestTimeout@0
+   # *ForerverTestTimeout = *main.ForerverTestTimeout/???.ForerverTestTimeout (not found, type=time.Duration)
+++ call main.poller(interval:caller[???.1000000:time.Duration] = Undefined, timeout:caller[main.main.t2] = Undefined)
+   # t0 = Alloc new time.Duration (interval) of type int64
+   # store *main.poller.t0 = main.poller.interval of type time.Duration
+   # t1 = Alloc new time.Duration (timeout) of type int64
+   # store *main.poller.t1 = main.poller.timeout of type time.Duration
+   # changetype t3 = t2 changetype WaitFunc <- func(done <-chan struct{}) <-chan struct{} (t2)
+          ^ unknown kind
+-- return from main.poller (1 retvals)
+   store update *main.main.t1 = main.main.t3 of type main.WaitFunc
+   main.main.t4 = Alloc (chan) of type *<-chan struct{} at (unknown)
+   # changetype t6 = t5 changetype WaitFunc <- func(done <-chan struct{}) <-chan struct{} (t5)
+          ^ unknown kind
+   # changetype t7 = main$2 changetype ConditionFunc <- func() (bool, error) (main$2)
+          ^ unknown kind
+   & changetype from main.main.t0 to main.main.t8 (channel main.main.t0@0)
+                      ^ origin
+++ call main.WaitFor(wait:caller[main.main.t6] = Undefined, fn:caller[main.main.t7] = Undefined, done:caller[main.main.t8] = main.main.t0@0 channel main.main.t0@0)
+Unknown call type wait(done)
+  Recv main←ᶜʰmain.WaitFor.t0@0*
+   ^ Recv: Channel main.WaitFor.t0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_kubernetes_70277/src/main.go:14:11 is external
+   # t2 = extract t1 #0 of type struct{}
+     ^ local struct (used as definition)
+   # t3 = extract t1 #1 of type bool
+Unknown call type fn()
+   # t5 = extract t4 #0 of type bool
+   # t6 = extract t4 #1 of type error
+   # t7 = t6 != nil:error
+-- return from main.WaitFor (1 retvals)
+   # *t4 = *new <-chan struct{} (doneCh) (not found)
+     ^ channel (not allocated, must be initialised by MakeChan)  Recv main←ᶜʰmain.main.t10@0*
+   ^ Recv: Channel main.main.t10 at (unknown) is external
+++ call builtin close(t0 channel main.main.t0@0)
+2026/10/31 14:26:41 Analysis finished in 461.75µs
+ ----- Results ----- 
+# Channels
+main.main.t0@0 main.WaitFor.t0@0* main.main.t10@0* 
+# Role
+main 
+# Session
+  main: main; NewChan main.main.t0@0 of type struct{}; main.WaitFor#1; Recv main←ᶜʰmain.WaitFor.t0@0*; children: 2 &{(Empty); ,(Empty); children: 2 &{(Empty); ,(Empty); children: 2 &{(Empty); Goto main.WaitFor#1; ,(Empty); Recv main←ᶜʰmain.main.t10@0*; End main.main.t0@0; }}}
+
+Total of nodes per role (1 roles)
+	13	: main
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_kubernetes_70277/out/blocking_kubernetes_70277_cfsms
+Total of 4 CFSMs (3 are channels)
+	0	= main.WaitFor.t0@0* (channel)
+	1	= main.main.t10@0* (channel)
+	2	= main.main.t0@0 (channel)
+	3	= main

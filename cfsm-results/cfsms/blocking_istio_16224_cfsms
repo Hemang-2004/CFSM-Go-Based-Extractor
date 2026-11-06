@@ -1,0 +1,67 @@
+
+-- Machines #0
+-- main.NewBufferedMonitor.t2@0
+.outputs
+.state graph
+q00 3 ? mainDOTEvent q02
+q00 4 ? mainDOTEvent q03
+q01 3 ? STOP q01
+q01 4 ! STOP q01
+q01 4 ? STOP q01
+q01 3 ! STOP q01
+q02 4 ! mainDOTEvent q00
+q03 3 ! mainDOTEvent q00
+.marking q00
+.end
+
+-- Machines #1
+-- main.main.t4@0
+.outputs
+.state graph
+q10 3 ? bool q12
+q10 4 ? bool q13
+q11 4 ? STOP q11
+q11 3 ! STOP q11
+q11 3 ? STOP q11
+q11 4 ! STOP q11
+q12 4 ! bool q10
+q13 3 ! bool q10
+.marking q10
+.end
+
+-- Machines #2
+-- main.main.t8@0
+.outputs
+.state graph
+q20 3 ? structLBRACERBRACE q22
+q20 4 ? structLBRACERBRACE q23
+q21 3 ! STOP q21
+q21 3 ? STOP q21
+q21 4 ! STOP q21
+q21 4 ? STOP q21
+q22 4 ! structLBRACERBRACE q20
+q23 3 ! structLBRACERBRACE q20
+.marking q20
+.end
+
+-- Machines #3
+-- main
+.outputs
+.state graph
+q30 0 ! mainDOTEvent q31
+q31 1 ? bool q32
+q32 2 ! STOP q33
+.marking q30
+.end
+
+-- Machines #4
+-- Run_1670
+.outputs
+.state graph
+q40 2 ? structLBRACERBRACE q41
+q40 0 ? mainDOTEvent q45
+q41 0 ? mainDOTEvent q42
+q41 0 ? STOP q44
+q42 0 ! STOP q43
+.marking q40
+.end

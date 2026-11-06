@@ -1,0 +1,37 @@
+
+-- Machines #0
+-- main.WaitFor.t0@0*
+.outputs
+.state graph
+q00 3 ? structLBRACERBRACE q02
+q01 3 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- main.main.t10@0*
+.outputs
+.state graph
+q10 3 ? structLBRACERBRACE q12
+q11 3 ? STOP q11
+.marking q10
+.end
+
+-- Machines #2
+-- main.main.t0@0
+.outputs
+.state graph
+q20 3 ? structLBRACERBRACE q22
+q21 3 ? STOP q21
+.marking q20
+.end
+
+-- Machines #3
+-- main
+.outputs
+.state graph
+q30 0 ? structLBRACERBRACE q31
+q31 1 ? structLBRACERBRACE q32
+q32 2 ! STOP q33
+.marking q30
+.end

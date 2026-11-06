@@ -1,0 +1,148 @@
+ssabuild: 2026/10/31 14:26:42 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:42 Skip package: runtime (Runtime contains threads that are not user related)
+ssabuild: 2026/10/31 14:26:42 Skip package: sync (Atomics confuse analyser)
+++ call.toplevel init()
+   main.init.t0 = storage(=Undefined)->[1] (external) of type *map[int]*main.Plugin
+     ^ accessed for the first time: use t0 as field definition of type map[int]*main.Plugin
+   # unhandled t1 = make map[int]*Plugin 
+   # store *main.init.t0 = main.init.t1 of type map[int]*main.Plugin
+   main.init.t2 = handlers(=Undefined)->[1] (external) of type *map[int]struct{}
+     ^ accessed for the first time: use t2 as field definition of type map[int]struct{}
+   # unhandled t3 = make map[int]struct{} 
+   # store *main.init.t2 = main.init.t3 of type map[int]struct{}
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *main.Plugin (2 fields) at (unknown)
+   main.main.t1 = t0(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ accessed for the first time: use t1 as field definition
+   main.main.t2 = Alloc (struct@heap) of type *sync.Mutex (2 fields) at (unknown)
+   main.main.t3 <-(struct/iface)- main.main.t2 make sync.Locker <- *sync.Mutex (t2) = main.main.t2@0
+++ call sync.NewCond()
+-- Return from sync.NewCond (builtin/ext) with a single value
+-- return from sync.NewCond (1 retvals)
+   # store *main.main.t1 = main.main.t4 of type *sync.Cond
+   main.main.t5 = storage(=???.storage@1)->[1] of type *map[int]*main.Plugin
+     ^ field t5 previously defined as main.init.t0
+   # *t5 = *&storage.plugins [#1]/main.main.t5 (not found, type=map[int]*main.Plugin)
+   # unhandled t6[0:int] = t0
+++ call main.testActive(p:caller[main.main.t0] = main.main.t0@0 struct)
+   # t0 = Alloc new *Plugin (p) of type *main.Plugin
+   store struct *main.testActive.t0 = main.testActive.p of type *main.Plugin
+   main.testActive.t1 = Alloc (chan) of type *chan struct{} at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/src/main.go:44:2
+   New channel main.testActive.t2@0 { type: struct{} } by main.testActive.t2@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/src/main.go:44:14
+               ^ in role main
+   store chan *main.testActive.t1 = main.testActive.t2 of type chan struct{}
+@@ queue go main.testActive$1(, capture p = main.main.t0@0, capture done = main.testActive.t2@0)
+   main.testActive.t4 = *t1 (previously initalised Chan)
+  Recv main←ᶜʰmain.testActive.t2@0
+-- return from main.testActive (0 retvals)
+++ call main.Handle()
+   main.Handle.t0 = handlers(=Undefined)->[0] (external) of type *sync.RWMutex
+     ^ accessed for the first time: use t0 as field definition of type struct{w sync.Mutex; writerSem uint32; readerSem uint32; readerCount int32; readerWait int32}
+     ^ field t0 previously defined as main.Handle.t0
+++ call (*sync.RWMutex).Lock()
+-- return from (*sync.RWMutex).Lock (0 retvals)
+   main.Handle.t2 = storage(=Undefined)->[1] (external) of type *map[int]*main.Plugin
+     ^ accessed for the first time: use t2 as field definition of type map[int]*main.Plugin
+   # *t2 = *&storage.plugins [#1]/main.Handle.t2 (not found, type=map[int]*main.Plugin)
+   # unhandled t4 = range t3
+   # unhandled t5 = next t4
+   # t6 = extract t5 #0 of type bool
+   # t7 = extract t5 #2 of type *main.Plugin
+     ^ local struct (used as definition)
+   main.Handle.t8 = t7(=main.Handle.t7@0)->[0] (local) of type *bool
+     ^ accessed for the first time: use t8 as field definition
+   # store *main.Handle.t8 = ???.false:bool of type bool
+   main.Handle.t9 = handlers(=???.handlers@2)->[0] of type *sync.RWMutex
+     ^ field t9 previously defined as main.Handle.t0
+++ call (*sync.RWMutex).Unlock()
+-- return from (*sync.RWMutex).Unlock (0 retvals)
+-- return from main.Handle (0 retvals)
+++ call main.testActive(p:caller[main.main.t0] = main.main.t0@0 struct)
+   # t0 = Alloc new *Plugin (p) of type *main.Plugin
+   store struct *main.testActive.t0 = main.testActive.p of type *main.Plugin
+   main.testActive.t1 = Alloc (chan) of type *chan struct{} at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/src/main.go:44:2
+   New channel main.testActive.t2@1 { type: struct{} } by main.testActive.t2@1 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/src/main.go:44:14
+               ^ in role main
+   store chan *main.testActive.t1 = main.testActive.t2 of type chan struct{}
+@@ queue go main.testActive$1(, capture p = main.main.t0@0, capture done = main.testActive.t2@1)
+   main.testActive.t4 = *t1 (previously initalised Chan)
+  Recv main←ᶜʰmain.testActive.t2@1
+-- return from main.testActive (0 retvals)
+
+testActive$1
+LOCATION: t3_690/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/src/main.go:45:5
+   main.testActive$1.t0 = *p (struct)
+++ call (*main.Plugin).waitActive(p:caller[main.testActive$1.t0] = main.main.t0@0 struct)
+   (*main.Plugin).waitActive.t0 = p(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ field t0 previously defined as main.main.t1
+   # *t0 = *&p.activateWait [#1]/(*main.Plugin).waitActive.t0 (not found, type=*sync.Cond)
+   (*main.Plugin).waitActive.t2 = t1(=Undefined)->[1] (external) of type *sync.Locker
+     ^ accessed for the first time: use t2 as field definition of type interface{Lock(); Unlock()}
+   # *t2 = *&t1.L [#1]/(*main.Plugin).waitActive.t2 (not found, type=sync.Locker)
+++ invoke (*main.Plugin).waitActive.t3.func (sync.Locker).Lock()
+   (*main.Plugin).waitActive.t13 = p(=main.main.t0@0)->[0] of type *bool
+     ^ accessed for the first time: use t13 as field definition
+   # *t13 = *&p.activated [#0]/(*main.Plugin).waitActive.t13 (not found, type=bool)
+   (*main.Plugin).waitActive.t8 = p(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ field t8 previously defined as main.main.t1
+   # *t8 = *&p.activateWait [#1]/(*main.Plugin).waitActive.t8 (not found, type=*sync.Cond)
+   (*main.Plugin).waitActive.t10 = t9(=Undefined)->[1] (external) of type *sync.Locker
+     ^ accessed for the first time: use t10 as field definition of type interface{Lock(); Unlock()}
+   # *t10 = *&t9.L [#1]/(*main.Plugin).waitActive.t10 (not found, type=sync.Locker)
+++ invoke (*main.Plugin).waitActive.t11.func (sync.Locker).Unlock()
+   (*main.Plugin).waitActive.t5 = p(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ field t5 previously defined as main.main.t1
+   # *t5 = *&p.activateWait [#1]/(*main.Plugin).waitActive.t5 (not found, type=*sync.Cond)
+++ call (*sync.Cond).Wait()
+-- return from (*sync.Cond).Wait (0 retvals)
+-- return from (*main.Plugin).waitActive (0 retvals)
+   main.testActive$1.t2 = *done (previously initalised Chan)
+++ call builtin close(t2 channel main.testActive.t2@0)
+
+testActive$1
+LOCATION: t3_690/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/src/main.go:45:5
+   main.testActive$1.t0 = *p (struct)
+++ call (*main.Plugin).waitActive(p:caller[main.testActive$1.t0] = main.main.t0@0 struct)
+   (*main.Plugin).waitActive.t0 = p(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ field t0 previously defined as main.main.t1
+   # *t0 = *&p.activateWait [#1]/(*main.Plugin).waitActive.t0 (not found, type=*sync.Cond)
+   (*main.Plugin).waitActive.t2 = t1(=Undefined)->[1] (external) of type *sync.Locker
+     ^ accessed for the first time: use t2 as field definition of type interface{Lock(); Unlock()}
+   # *t2 = *&t1.L [#1]/(*main.Plugin).waitActive.t2 (not found, type=sync.Locker)
+++ invoke (*main.Plugin).waitActive.t3.func (sync.Locker).Lock()
+   (*main.Plugin).waitActive.t13 = p(=main.main.t0@0)->[0] of type *bool
+   # *t13 = *&p.activated [#0]/(*main.Plugin).waitActive.t13 (not found, type=bool)
+   (*main.Plugin).waitActive.t8 = p(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ field t8 previously defined as main.main.t1
+   # *t8 = *&p.activateWait [#1]/(*main.Plugin).waitActive.t8 (not found, type=*sync.Cond)
+   (*main.Plugin).waitActive.t10 = t9(=Undefined)->[1] (external) of type *sync.Locker
+     ^ accessed for the first time: use t10 as field definition of type interface{Lock(); Unlock()}
+   # *t10 = *&t9.L [#1]/(*main.Plugin).waitActive.t10 (not found, type=sync.Locker)
+++ invoke (*main.Plugin).waitActive.t11.func (sync.Locker).Unlock()
+   (*main.Plugin).waitActive.t5 = p(=main.main.t0@0)->[1] of type **sync.Cond
+     ^ field t5 previously defined as main.main.t1
+   # *t5 = *&p.activateWait [#1]/(*main.Plugin).waitActive.t5 (not found, type=*sync.Cond)
+++ call (*sync.Cond).Wait()
+-- return from (*sync.Cond).Wait (0 retvals)
+-- return from (*main.Plugin).waitActive (0 retvals)
+   main.testActive$1.t2 = *done (previously initalised Chan)
+++ call builtin close(t2 channel main.testActive.t2@1)
+2026/10/31 14:26:42 Analysis finished in 652.458µs
+ ----- Results ----- 
+# Channels
+main.testActive.t2@0 main.testActive.t2@1 
+# Role
+main t3_690 
+# Session
+  main: main; NewChan main.testActive.t2@0 of type struct{}; Recv main←ᶜʰmain.testActive.t2@0; main.Handle#1; children: 2 &{(Empty); Goto main.Handle#1; ,(Empty); NewChan main.testActive.t2@1 of type struct{}; Recv main←ᶜʰmain.testActive.t2@1; }
+  t3_690: t3_690; (*main.Plugin).waitActive#3; children: 2 &{(Empty); ,(Empty); Goto (*main.Plugin).waitActive#3; End main.testActive.t2@1; }
+
+Total of nodes per role (2 roles)
+	9	: main
+	6	: t3_690
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_29733/out/blocking_moby_29733_cfsms
+Total of 4 CFSMs (2 are channels)
+	0	= main.testActive.t2@0 (channel)
+	1	= main.testActive.t2@1 (channel)
+	2	= main
+	3	= t3_690

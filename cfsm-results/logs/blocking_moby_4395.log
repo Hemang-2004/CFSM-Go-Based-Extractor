@@ -1,0 +1,39 @@
+ssabuild: 2026/10/31 14:26:42 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:42 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+++ call.toplevel main()
+++ call main.Go(f:caller[main.main.main$1] = Undefined)
+   # t0 = Alloc new func() error (f) of type func() error
+   # store *main.Go.t0 = main.Go.f of type func() error
+   main.Go.t1 = Alloc (chan) of type *chan error at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_4395/src/main.go:19:2
+   New channel main.Go.t2@0 { type: error } by main.Go.t2@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_4395/src/main.go:19:12
+               ^ in role main
+   store chan *main.Go.t1 = main.Go.t2 of type chan error
+@@ queue go main.Go$1(, capture ch = main.Go.t2@0, capture f = Undefined)
+   main.Go.t4 = *t1 (previously initalised Chan)
+-- return from main.Go (1 retvals)
+
+Go$1
+LOCATION: t3_437/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_4395/src/main.go:20:5
+   main.Go$1.t0 = *ch (previously initalised Chan)
+   # *f = *freevar f : *func() error/main.Go$1.f (not found, type=func() error)
+Unknown call type t1()
+  Send t3_437→ᶜʰmain.Go.t2@0 
+2026/10/31 14:26:42 Analysis finished in 7.140792ms
+ ----- Results ----- 
+# Channels
+main.Go.t2@0 
+# Role
+main t3_437 
+# Session
+  main: main; NewChan main.Go.t2@0 of type error; 
+  t3_437: t3_437; Send t3_437→ᶜʰmain.Go.t2@0 ; 
+
+Total of nodes per role (2 roles)
+	2	: main
+	2	: t3_437
+2026/10/31 14:26:42 Machine 1 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_4395/out/blocking_moby_4395_cfsms
+Total of 2 CFSMs (1 are channels)
+	0	= main.Go.t2@0 (channel)
+	1	= t3_437

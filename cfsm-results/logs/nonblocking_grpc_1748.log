@@ -1,0 +1,182 @@
+ssabuild: 2026/10/31 14:26:43 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:43 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:43 Skip package: runtime (Runtime contains threads that are not user related)
+ssabuild: 2026/10/31 14:26:43 Skip package: time (Time not supported)
+++ call.toplevel init()
+   # store (global) *???.minConnectTimeout = ???.10000000000:time.Duration of type time.Duration
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *sync.WaitGroup (3 fields) at (unknown)
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+@@ queue go main.main$1(, capture wg = main.main.t0@0)
+++ call (*sync.WaitGroup).Wait()
+-- return from (*sync.WaitGroup).Wait (0 retvals)
+
+main$1
+LOCATION: t2_2282/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:138:5
+   # t0 = Alloc new time.Duration (mctBkp) of type int64
+   main.main$1.t1 = *minConnectTimeout (global) of type *time.Duration
+    ^ i.e. ???.minConnectTimeout@0
+   # *minConnectTimeout = *main.minConnectTimeout/???.minConnectTimeout (not found, type=time.Duration)
+   # store *main.main$1.t0 = main.main$1.t1 of type time.Duration
+   main.main$1.t3 = Alloc (struct@heap) of type *main.ClientConn (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:145:20
+++ call (*main.ClientConn).switchBalancer(cc:caller[main.main$1.t3] = main.main$1.t3@0 struct)
+++ call main.newPickfirstBuilder()
+   main.newPickfirstBuilder.t0 = Alloc (struct@heap) of type *main.pickfirstBuilder (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:21:26
+   main.newPickfirstBuilder.t1 <-(struct/iface)- main.newPickfirstBuilder.t0 make Builder <- *pickfirstBuilder (t0) = main.newPickfirstBuilder.t0@0
+-- return from main.newPickfirstBuilder (1 retvals)
+++ call main.newCCBalancerWrapper(cc:caller[(*main.ClientConn).switchBalancer.cc] = main.main$1.t3@0 struct, b:caller[(*main.ClientConn).switchBalancer.t0] = main.newPickfirstBuilder.t0@0 struct)
+   main.newCCBalancerWrapper.t0 = Alloc (struct@heap) of type *main.ccBalancerWrapper (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:127:27
+   main.newCCBalancerWrapper.t1 = t0(=main.newCCBalancerWrapper.t0@0)->[0] of type **main.ClientConn
+     ^ accessed for the first time: use t1 as field definition
+   store struct *main.newCCBalancerWrapper.t1 = main.newCCBalancerWrapper.cc of type *main.ClientConn
+@@ queue go (*main.ccBalancerWrapper).watcher(ccb:caller[main.newCCBalancerWrapper.t0] = main.newCCBalancerWrapper.t0@0 struct)
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   main.newCCBalancerWrapper.t3 = t0(=main.newCCBalancerWrapper.t0@0)->[1] of type *main.Balancer
+     ^ accessed for the first time: use t3 as field definition
+   main.newCCBalancerWrapper.t4 <-(struct/iface)- main.newCCBalancerWrapper.t0 make balancer_ClientConn <- *ccBalancerWrapper (t0) = main.newCCBalancerWrapper.t0@0
+++ invoke main.newCCBalancerWrapper.b.func (main.Builder).Build(cc main.balancer_ClientConn) main.Balancer, type=*main.pickfirstBuilder
+     ^ finding method for type: *main.pickfirstBuilder pkg: main name: Build
+     ^ found function (*main.pickfirstBuilder).Build
+++ call (*main.pickfirstBuilder).Build(arg0:caller[main.newCCBalancerWrapper.b] = main.newPickfirstBuilder.t0@0 struct, cc:caller[main.newCCBalancerWrapper.t4] = main.newCCBalancerWrapper.t0@0 struct)
+   (*main.pickfirstBuilder).Build.t0 = Alloc (struct@heap) of type *main.pickfirstBalancer (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:27:27
+   (*main.pickfirstBuilder).Build.t1 = t0(=(*main.pickfirstBuilder).Build.t0@0)->[0] of type *main.balancer_ClientConn
+     ^ accessed for the first time: use t1 as field definition
+   store struct *(*main.pickfirstBuilder).Build.t1 = (*main.pickfirstBuilder).Build.cc of type main.balancer_ClientConn
+   (*main.pickfirstBuilder).Build.t2 <-(struct/iface)- (*main.pickfirstBuilder).Build.t0 make Balancer <- *pickfirstBalancer (t0) = (*main.pickfirstBuilder).Build.t0@0
+-- return from (*main.pickfirstBuilder).Build (1 retvals)
+   store struct *main.newCCBalancerWrapper.t3 = main.newCCBalancerWrapper.t5 of type main.Balancer
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+-- return from main.newCCBalancerWrapper (0 retvals)
+-- return from (*main.ClientConn).switchBalancer (0 retvals)
+   # TODO (handle closure) make closure main$1$1 [t0]
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+watcher
+LOCATION: watcher_2133/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:105:31
+   # t5 = t4 < 10:int
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   (*main.ccBalancerWrapper).watcher.t1 = ccb(=main.newCCBalancerWrapper.t0@0)->[1] of type *main.Balancer
+     ^ field t1 previously defined as (*main.pickfirstBuilder).Build.t0
+   (*main.ccBalancerWrapper).watcher.t2 = *t1 (struct)
+   # t3 = t2 != nil:Balancer
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+   (*main.ccBalancerWrapper).watcher.t7 = ccb(=main.newCCBalancerWrapper.t0@0)->[1] of type *main.Balancer
+     ^ field t7 previously defined as (*main.pickfirstBuilder).Build.t0
+   (*main.ccBalancerWrapper).watcher.t8 = *t7 (struct)
+++ invoke (*main.ccBalancerWrapper).watcher.t8.func (main.Balancer).HandleResolvedAddrs(), type=*main.pickfirstBalancer
+     ^ finding method for type: *main.pickfirstBalancer pkg: main name: HandleResolvedAddrs
+     ^ found function (*main.pickfirstBalancer).HandleResolvedAddrs
+++ call (*main.pickfirstBalancer).HandleResolvedAddrs(b:caller[(*main.ccBalancerWrapper).watcher.t8] = (*main.pickfirstBuilder).Build.t0@0 struct)
+   (*main.pickfirstBalancer).HandleResolvedAddrs.t0 = b(=(*main.pickfirstBuilder).Build.t0@0)->[1] of type *main.SubConn
+     ^ accessed for the first time: use t0 as field definition
+   (*main.pickfirstBalancer).HandleResolvedAddrs.t1 = b(=(*main.pickfirstBuilder).Build.t0@0)->[0] of type *main.balancer_ClientConn
+     ^ field t1 previously defined as main.newCCBalancerWrapper.t0
+   (*main.pickfirstBalancer).HandleResolvedAddrs.t2 = *t1 (struct)
+++ invoke (*main.pickfirstBalancer).HandleResolvedAddrs.t2.func (main.balancer_ClientConn).NewSubConn() main.SubConn, type=*main.ccBalancerWrapper
+     ^ finding method for type: *main.ccBalancerWrapper pkg: main name: NewSubConn
+     ^ found function (*main.ccBalancerWrapper).NewSubConn
+++ call (*main.ccBalancerWrapper).NewSubConn(ccb:caller[(*main.pickfirstBalancer).HandleResolvedAddrs.t2] = main.newCCBalancerWrapper.t0@0 struct)
+   (*main.ccBalancerWrapper).NewSubConn.t0 = ccb(=main.newCCBalancerWrapper.t0@0)->[0] of type **main.ClientConn
+     ^ field t0 previously defined as main.main$1.t3
+   (*main.ccBalancerWrapper).NewSubConn.t1 = *t0 (struct)
+++ call (*main.ClientConn).newAddrConn(cc:caller[(*main.ccBalancerWrapper).NewSubConn.t1] = main.main$1.t3@0 struct)
+   (*main.ClientConn).newAddrConn.t0 = Alloc (struct@heap) of type *main.addrConn (3 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:97:18
+   (*main.ClientConn).newAddrConn.t1 = t0(=(*main.ClientConn).newAddrConn.t0@0)->[0] of type **main.ClientConn
+     ^ accessed for the first time: use t1 as field definition
+   store struct *(*main.ClientConn).newAddrConn.t1 = (*main.ClientConn).newAddrConn.cc of type *main.ClientConn
+-- return from (*main.ClientConn).newAddrConn (1 retvals)
+   (*main.ccBalancerWrapper).NewSubConn.t3 = Alloc (struct@heap) of type *main.acBalancerWrapper (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:119:28
+   (*main.ccBalancerWrapper).NewSubConn.t4 = t3(=(*main.ccBalancerWrapper).NewSubConn.t3@0)->[1] of type **main.addrConn
+     ^ accessed for the first time: use t4 as field definition
+   store struct *(*main.ccBalancerWrapper).NewSubConn.t4 = (*main.ccBalancerWrapper).NewSubConn.t2 of type *main.addrConn
+   (*main.ccBalancerWrapper).NewSubConn.t5 = t3(=(*main.ccBalancerWrapper).NewSubConn.t3@0)->[1] of type **main.addrConn
+     ^ field t5 previously defined as (*main.ClientConn).newAddrConn.t0
+   (*main.ccBalancerWrapper).NewSubConn.t6 = *t5 (struct)
+   (*main.ccBalancerWrapper).NewSubConn.t7 = t6(=(*main.ClientConn).newAddrConn.t0@0)->[2] of type *sync.Mutex
+     ^ accessed for the first time: use t7 as field definition
+     ^ field t7 is a struct (allocating)
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   (*main.ccBalancerWrapper).NewSubConn.t9 = t2(=(*main.ClientConn).newAddrConn.t0@0)->[1] of type *main.SubConn
+     ^ accessed for the first time: use t9 as field definition
+   (*main.ccBalancerWrapper).NewSubConn.t10 <-(struct/iface)- (*main.ccBalancerWrapper).NewSubConn.t3 make SubConn <- *acBalancerWrapper (t3) = (*main.ccBalancerWrapper).NewSubConn.t3@0
+   store struct *(*main.ccBalancerWrapper).NewSubConn.t9 = (*main.ccBalancerWrapper).NewSubConn.t10 of type main.SubConn
+   (*main.ccBalancerWrapper).NewSubConn.t11 = t3(=(*main.ccBalancerWrapper).NewSubConn.t3@0)->[1] of type **main.addrConn
+     ^ field t11 previously defined as (*main.ClientConn).newAddrConn.t0
+   (*main.ccBalancerWrapper).NewSubConn.t12 = *t11 (struct)
+   (*main.ccBalancerWrapper).NewSubConn.t13 = t12(=(*main.ClientConn).newAddrConn.t0@0)->[2] of type *sync.Mutex
+     ^ field t13 previously defined as (*main.ccBalancerWrapper).NewSubConn.t7
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+   (*main.ccBalancerWrapper).NewSubConn.t15 <-(struct/iface)- (*main.ccBalancerWrapper).NewSubConn.t3 make SubConn <- *acBalancerWrapper (t3) = (*main.ccBalancerWrapper).NewSubConn.t3@0
+-- return from (*main.ccBalancerWrapper).NewSubConn (1 retvals)
+   store struct *(*main.pickfirstBalancer).HandleResolvedAddrs.t0 = (*main.pickfirstBalancer).HandleResolvedAddrs.t3 of type main.SubConn
+   (*main.pickfirstBalancer).HandleResolvedAddrs.t4 = b(=(*main.pickfirstBuilder).Build.t0@0)->[1] of type *main.SubConn
+     ^ field t4 previously defined as (*main.ccBalancerWrapper).NewSubConn.t3
+   (*main.pickfirstBalancer).HandleResolvedAddrs.t5 = *t4 (struct)
+++ invoke (*main.pickfirstBalancer).HandleResolvedAddrs.t5.func (main.SubConn).Connect(), type=*main.acBalancerWrapper
+     ^ finding method for type: *main.acBalancerWrapper pkg: main name: Connect
+     ^ found function (*main.acBalancerWrapper).Connect
+++ call (*main.acBalancerWrapper).Connect(acbw:caller[(*main.pickfirstBalancer).HandleResolvedAddrs.t5] = (*main.ccBalancerWrapper).NewSubConn.t3@0 struct)
+   (*main.acBalancerWrapper).Connect.t0 = acbw(=(*main.ccBalancerWrapper).NewSubConn.t3@0)->[0] of type *sync.Mutex
+     ^ accessed for the first time: use t0 as field definition
+     ^ field t0 is a struct (allocating)
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   (*main.acBalancerWrapper).Connect.t2 = acbw(=(*main.ccBalancerWrapper).NewSubConn.t3@0)->[0] of type *sync.Mutex
+     ^ field t2 previously defined as (*main.acBalancerWrapper).Connect.t0
+   (*main.acBalancerWrapper).Connect.t3 = acbw(=(*main.ccBalancerWrapper).NewSubConn.t3@0)->[1] of type **main.addrConn
+     ^ field t3 previously defined as (*main.ClientConn).newAddrConn.t0
+   (*main.acBalancerWrapper).Connect.t4 = *t3 (struct)
+++ call (*main.addrConn).connect(ac:caller[(*main.acBalancerWrapper).Connect.t4] = (*main.ClientConn).newAddrConn.t0@0 struct)
+   # t0 = Alloc new *addrConn (ac) of type *main.addrConn
+   store struct *(*main.addrConn).connect.t0 = (*main.addrConn).connect.ac of type *main.addrConn
+@@ queue go (*main.addrConn).connect$1(, capture ac = (*main.ClientConn).newAddrConn.t0@0)
+-- return from (*main.addrConn).connect (0 retvals)
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+-- return from (*main.acBalancerWrapper).Connect (0 retvals)
+-- return from (*main.pickfirstBalancer).HandleResolvedAddrs (0 retvals)
+   # t10 = t4 + 1:int
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+
+connect$1
+LOCATION: t1_1099/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/src/main.go:72:5
+   (*main.addrConn).connect$1.t0 = *ac (struct)
+++ call (*main.addrConn).transportMonitor(ac:caller[(*main.addrConn).connect$1.t0] = (*main.ClientConn).newAddrConn.t0@0 struct)
+++ call (*main.addrConn).resetTransport(ac:caller[(*main.addrConn).transportMonitor.ac] = (*main.ClientConn).newAddrConn.t0@0 struct)
+   (*main.addrConn).resetTransport.t0 = *minConnectTimeout (global) of type *time.Duration
+    ^ i.e. ???.minConnectTimeout@0
+   # *minConnectTimeout = *main.minConnectTimeout/???.minConnectTimeout (not found, type=time.Duration)
+-- return from (*main.addrConn).resetTransport (0 retvals)
+-- return from (*main.addrConn).transportMonitor (0 retvals)
+2026/10/31 14:26:43 Analysis finished in 908.083µs
+ ----- Results ----- 
+# Channels
+
+# Role
+t2_2282 watcher_2133 t1_1099 main 
+# Session
+  t2_2282: t2_2282; 
+  watcher_2133: watcher_2133; (*main.ccBalancerWrapper).watcher#3; children: 2 &{(Empty); children: 2 &{(Empty); (*main.ccBalancerWrapper).watcher#5; Goto (*main.ccBalancerWrapper).watcher#3; ,(Empty); Goto (*main.ccBalancerWrapper).watcher#5; },(Empty); }
+  t1_1099: t1_1099; 
+  main: main; 
+
+Total of nodes per role (4 roles)
+	1	: t1_1099
+	1	: main
+	1	: t2_2282
+	9	: watcher_2133
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_grpc_1748/out/nonblocking_grpc_1748_cfsms
+Total of 0 CFSMs (0 are channels)

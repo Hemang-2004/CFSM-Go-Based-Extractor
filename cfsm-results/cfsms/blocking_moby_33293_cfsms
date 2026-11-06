@@ -1,0 +1,17 @@
+
+-- Machines #0
+-- main.containerWait.t0@0
+.outputs
+.state graph
+q00 1 ? error q02
+q01 1 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- main$1_599
+.outputs
+.state graph
+q10 0 ! error q11
+.marking q10
+.end

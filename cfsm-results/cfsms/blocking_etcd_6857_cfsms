@@ -1,0 +1,155 @@
+
+-- Machines #0
+-- main.NewNode.t2@0
+.outputs
+.state graph
+q00 5 ? chan mainDOTStatus q02
+q00 6 ? chan mainDOTStatus q03
+q00 7 ? chan mainDOTStatus q04
+q01 6 ! STOP q01
+q01 6 ? STOP q01
+q01 7 ! STOP q01
+q01 5 ! STOP q01
+q01 6 ! STOP q01
+q01 5 ? STOP q01
+q01 5 ! STOP q01
+q01 7 ? STOP q01
+q01 7 ! STOP q01
+q02 6 ! chan mainDOTStatus q00
+q02 7 ! chan mainDOTStatus q00
+q03 7 ! chan mainDOTStatus q00
+q03 5 ! chan mainDOTStatus q00
+q04 5 ! chan mainDOTStatus q00
+q04 6 ! chan mainDOTStatus q00
+.marking q00
+.end
+
+-- Machines #1
+-- main.NewNode.t4@0
+.outputs
+.state graph
+q10 6 ? structLBRACERBRACE q12
+q10 7 ? structLBRACERBRACE q13
+q10 5 ? structLBRACERBRACE q14
+q11 5 ! STOP q11
+q11 7 ? STOP q11
+q11 6 ! STOP q11
+q11 5 ? STOP q11
+q11 7 ! STOP q11
+q11 6 ? STOP q11
+q11 7 ! STOP q11
+q11 5 ! STOP q11
+q11 6 ! STOP q11
+q12 7 ! structLBRACERBRACE q10
+q12 5 ! structLBRACERBRACE q10
+q13 5 ! structLBRACERBRACE q10
+q13 6 ! structLBRACERBRACE q10
+q14 6 ! structLBRACERBRACE q10
+q14 7 ! structLBRACERBRACE q10
+.marking q10
+.end
+
+-- Machines #2
+-- main.NewNode.t6@0
+.outputs
+.state graph
+q20 5 ? structLBRACERBRACE q22
+q20 6 ? structLBRACERBRACE q23
+q20 7 ? structLBRACERBRACE q24
+q21 6 ? STOP q21
+q21 5 ! STOP q21
+q21 5 ! STOP q21
+q21 6 ! STOP q21
+q21 5 ? STOP q21
+q21 6 ! STOP q21
+q21 7 ! STOP q21
+q21 7 ! STOP q21
+q21 7 ? STOP q21
+q22 7 ! structLBRACERBRACE q20
+q22 6 ! structLBRACERBRACE q20
+q23 7 ! structLBRACERBRACE q20
+q23 5 ! structLBRACERBRACE q20
+q24 5 ! structLBRACERBRACE q20
+q24 6 ! structLBRACERBRACE q20
+.marking q20
+.end
+
+-- Machines #3
+-- (*main.node).run.t7@0*
+.outputs
+.state graph
+q30 6 ? mainDOTStatus q33
+q30 7 ? mainDOTStatus q34
+q30 5 ? mainDOTStatus q32
+q31 5 ? STOP q31
+q31 6 ? STOP q31
+q31 5 ! STOP q31
+q31 7 ! STOP q31
+q31 7 ? STOP q31
+q31 5 ! STOP q31
+q31 6 ! STOP q31
+q31 7 ! STOP q31
+q31 6 ! STOP q31
+q32 6 ! mainDOTStatus q30
+q32 7 ! mainDOTStatus q30
+q33 7 ! mainDOTStatus q30
+q33 5 ! mainDOTStatus q30
+q34 5 ! mainDOTStatus q30
+q34 6 ! mainDOTStatus q30
+.marking q30
+.end
+
+-- Machines #4
+-- (*main.node).Status.t0@0
+.outputs
+.state graph
+q40 7 ? mainDOTStatus q42
+q40 5 ? mainDOTStatus q43
+q40 6 ? mainDOTStatus q44
+q41 6 ! STOP q41
+q41 5 ? STOP q41
+q41 6 ! STOP q41
+q41 5 ! STOP q41
+q41 7 ! STOP q41
+q41 7 ? STOP q41
+q41 7 ! STOP q41
+q41 6 ? STOP q41
+q41 5 ! STOP q41
+q42 5 ! mainDOTStatus q40
+q42 6 ! mainDOTStatus q40
+q43 6 ! mainDOTStatus q40
+q43 7 ! mainDOTStatus q40
+q44 7 ! mainDOTStatus q40
+q44 5 ! mainDOTStatus q40
+.marking q40
+.end
+
+-- Machines #5
+-- Status_1114
+.outputs
+.state graph
+q50 0 ! chan mainDOTStatus q51
+q51 4 ? mainDOTStatus q52
+.marking q50
+.end
+
+-- Machines #6
+-- Stop_1135
+.outputs
+.state graph
+q60 1 ! structLBRACERBRACE q61
+q60 2 ? structLBRACERBRACE q63
+q61 2 ? structLBRACERBRACE q62
+.marking q60
+.end
+
+-- Machines #7
+-- run_1093
+.outputs
+.state graph
+q70 0 ? chan mainDOTStatus q71
+q70 1 ? structLBRACERBRACE q73
+q71 3 ! mainDOTStatus q72
+q73 2 ! STOP q74
+.marking q70
+.end

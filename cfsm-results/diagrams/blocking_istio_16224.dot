@@ -1,0 +1,34 @@
+digraph G {
+  rankdir=LR; fontname="Helvetica"; compound=true; nodesep=0.35; ranksep=0.55; pad=0.3; bgcolor="white";
+  node [fontname="Helvetica", fontsize=11, shape=circle, width=0.42, fixedsize=false, style=filled, fillcolor="#f8fafc", color="#475569"];
+  edge [fontname="Helvetica", fontsize=10, arrowsize=0.7];
+  labelloc=t; labeljust=l;
+  label=<<TABLE BORDER="0" CELLSPACING="2" CELLPADDING="3"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="20"><B>GoBench istio #16224</B></FONT>  <FONT POINT-SIZE="13" COLOR="#475569">Blocking / Mixed Deadlock / Channel &amp; Lock</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>Issue:</B> </FONT><BR ALIGN="LEFT"/><FONT POINT-SIZE="11">A goroutine holds a mutex at line 91 and then blocked at line 93. Another goroutine attempt acquire the<BR ALIGN="LEFT"/>same mutex at line 101 to further drains the same channel at 103.<BR ALIGN="LEFT"/></FONT></TD></TR><TR><TD ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><B>IPs detected:</B></TD><TD BGCOLOR="#1b7f3b"><FONT COLOR="white"><B> IP-1 </B> Send/Receive </FONT></TD><TD WIDTH="4"></TD><TD BGCOLOR="#b45309"><FONT COLOR="white"><B> IP-3 </B> Alternative </FONT></TD><TD WIDTH="4"></TD><TD BGCOLOR="#0369a1"><FONT COLOR="white"><B> IP-7 </B> Multiple exchange </FONT></TD><TD WIDTH="4"></TD></TR></TABLE></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>What the CFSM shows:</B></FONT><BR ALIGN="LEFT"/><FONT POINT-SIZE="11">• ch1: a receive exists but no goroutine ever sends on it<BR ALIGN="LEFT"/></FONT></TD></TR><TR><TD> </TD></TR></TABLE>>;
+  subgraph cluster_g3 { label=<<B>machine 3: main</B>>; labeljust=l; style="rounded,filled"; fillcolor="#f1f5f9"; color="#94a3b8"; fontsize=12;
+    g3_q30 [label="30" penwidth=2.4];
+    g3_q31 [label="31"];
+    g3_q32 [label="32"];
+    g3_q33 [label="33" shape=doublecircle];
+    g3_start [shape=point, width=0.08, style=invis, label=""];
+    g3_start -> g3_q30 [arrowsize=0.9, color="#475569"];
+    g3_q30 -> g3_q31 [label=<ch0 ! main.Event<BR/><FONT COLOR="#1b7f3b" POINT-SIZE="9"><B>[IP-1] </B></FONT>>, color="#1d4ed8", fontcolor="#1d4ed8", style=solid, penwidth=1.2];
+    g3_q31 -> g3_q32 [label=<ch1 ? bool<FONT COLOR="#dc2626">  ⚠ no sender</FONT>>, color="#dc2626", fontcolor="#dc2626", style=solid, penwidth=2.2];
+    g3_q32 -> g3_q33 [label=<close(ch2)>, color="#b91c1c", fontcolor="#b91c1c", style=dashed, penwidth=1.2];
+  }
+  subgraph cluster_g4 { label=<<B>machine 4: Run</B>>; labeljust=l; style="rounded,filled"; fillcolor="#f1f5f9"; color="#94a3b8"; fontsize=12;
+    g4_q40 [label="40" penwidth=2.4 fillcolor="#b4530922" color="#b45309" penwidth=2.4 xlabel=<<FONT COLOR="#b45309" POINT-SIZE="10"><B>IP-3</B></FONT>>];
+    g4_q41 [label="41"];
+    g4_q45 [label="45" shape=doublecircle];
+    g4_q42 [label="42"];
+    g4_q44 [label="44" shape=doublecircle];
+    g4_q43 [label="43" shape=doublecircle];
+    g4_start [shape=point, width=0.08, style=invis, label=""];
+    g4_start -> g4_q40 [arrowsize=0.9, color="#475569"];
+    g4_q40 -> g4_q41 [label=<ch2 ? struct{}<BR/><FONT COLOR="#b45309" POINT-SIZE="9"><B>[IP-3] </B></FONT>>, color="#15803d", fontcolor="#15803d", style=solid, penwidth=1.2];
+    g4_q40 -> g4_q45 [label=<ch0 ? main.Event<BR/><FONT COLOR="#1b7f3b" POINT-SIZE="9"><B>[IP-1] </B></FONT><FONT COLOR="#b45309" POINT-SIZE="9"><B>[IP-3] </B></FONT>>, color="#15803d", fontcolor="#15803d", style=solid, penwidth=1.2];
+    g4_q41 -> g4_q42 [label=<ch0 ? main.Event<BR/><FONT COLOR="#1b7f3b" POINT-SIZE="9"><B>[IP-1] </B></FONT><FONT COLOR="#0369a1" POINT-SIZE="9"><B>[IP-7] </B></FONT>>, color="#15803d", fontcolor="#15803d", style=solid, penwidth=1.2];
+    g4_q41 -> g4_q44 [label=<ch0 closed?<BR/><FONT COLOR="#0369a1" POINT-SIZE="9"><B>[IP-7] </B></FONT>>, color="#b91c1c", fontcolor="#b91c1c", style=dotted, penwidth=1.2];
+    g4_q42 -> g4_q43 [label=<close(ch0)>, color="#b91c1c", fontcolor="#b91c1c", style=dashed, penwidth=1.2];
+  }
+  legend [shape=plain, style="", label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" COLOR="#94a3b8"><TR><TD COLSPAN="5" BGCOLOR="#e2e8f0"><B>Channels in this system</B> (channel relay machines 0–2 omitted from the drawing)</TD></TR><TR><TD><B>name</B></TD><TD><B>allocated in</B></TD><TD><B>sent by</B></TD><TD><B>received by</B></TD><TD><B>closed by</B></TD></TR><TR><TD ALIGN="LEFT">ch0</TD><TD ALIGN="LEFT">main.NewBufferedMonitor.t2</TD><TD>3</TD><TD>4</TD><TD>4</TD></TR><TR><TD ALIGN="LEFT">ch1</TD><TD ALIGN="LEFT">main.main.t4</TD><TD>–</TD><TD>3</TD><TD>–</TD></TR><TR><TD ALIGN="LEFT">ch2</TD><TD ALIGN="LEFT">main.main.t8</TD><TD>–</TD><TD>4</TD><TD>3</TD></TR><TR><TD COLSPAN="5" ALIGN="LEFT"><FONT POINT-SIZE="10">Edge label  <FONT COLOR="#1d4ed8">ch ! msg</FONT> = send,  <FONT COLOR="#15803d">ch ? msg</FONT> = receive,  <FONT COLOR="#b91c1c">close(ch)</FONT> = STOP message.  Bold circle = start state, double circle = end state, numbers in machines = machine ids.</FONT></TD></TR></TABLE>>];
+}

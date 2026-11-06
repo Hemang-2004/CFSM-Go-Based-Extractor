@@ -1,0 +1,113 @@
+ssabuild: 2026/10/31 14:26:42 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:42 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:42 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+++ call.toplevel main()
+++ call main.NewService()
+   main.NewService.t0 = Alloc (struct@heap) of type *main.Service (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_syncthing_4829/src/main.go:60:17
+-- return from main.NewService (1 retvals)
+++ call (*main.Service).NewMapping(s:caller[main.main.t0] = main.NewService.t0@0 struct)
+   (*main.Service).NewMapping.t0 = Alloc (struct@heap) of type *main.Mapping (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_syncthing_4829/src/main.go:40:21
+   (*main.Service).NewMapping.t1 = t0(=(*main.Service).NewMapping.t0@0)->[1] of type *map[string]main.Address
+     ^ accessed for the first time: use t1 as field definition
+   # unhandled t2 = make map[string]Address 
+   # store *(*main.Service).NewMapping.t1 = (*main.Service).NewMapping.t2 of type map[string]main.Address
+   (*main.Service).NewMapping.t3 = s(=main.NewService.t0@0)->[0] of type *sync.RWMutex
+     ^ accessed for the first time: use t3 as field definition
+     ^ field t3 is a struct (allocating)
+++ call (*sync.RWMutex).Lock()
+-- return from (*sync.RWMutex).Lock (0 retvals)
+   (*main.Service).NewMapping.t5 = s(=main.NewService.t0@0)->[1] of type *[]*main.Mapping
+     ^ accessed for the first time: use t5 as field definition
+   (*main.Service).NewMapping.t6 = s(=main.NewService.t0@0)->[1] of type *[]*main.Mapping
+     ^ field t6 previously defined as (*main.Service).NewMapping.t5
+   # *t6 = *&s.mappings [#1]/(*main.Service).NewMapping.t6 (not found, type=[]*main.Mapping)
+   (*main.Service).NewMapping.t8 = Alloc (array@heap) of type *[1]*main.Mapping (1 elems) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_syncthing_4829/src/main.go:44:41
+   (*main.Service).NewMapping.t9 = &t8(=(*main.Service).NewMapping.t8@0)[&{4309529792 0}] of type **main.Mapping
+     ^ accessed for the first time: use t9 as elem definition
+   store struct *(*main.Service).NewMapping.t9 = (*main.Service).NewMapping.t0 of type *main.Mapping
+++ call builtin append(t7t10) # TODO (handle builtin)
+   # store *(*main.Service).NewMapping.t5 = (*main.Service).NewMapping.t11 of type []*main.Mapping
+   (*main.Service).NewMapping.t12 = s(=main.NewService.t0@0)->[0] of type *sync.RWMutex
+     ^ field t12 previously defined as (*main.Service).NewMapping.t3
+++ call (*sync.RWMutex).Unlock()
+-- return from (*sync.RWMutex).Unlock (0 retvals)
+-- return from (*main.Service).NewMapping (1 retvals)
+   main.main.t2 = t1(=(*main.Service).NewMapping.t0@0)->[1] of type *map[string]main.Address
+     ^ field t2 previously defined as (*main.Service).NewMapping.t1
+   # *t2 = *&t1.extAddresses [#1]/main.main.t2 (not found, type=map[string]main.Address)
+   # unhandled t3["test":string] = 0:Address
+++ call (*main.Service).RemoveMapping(s:caller[main.main.t0] = main.NewService.t0@0 struct, mapping:caller[main.main.t1] = (*main.Service).NewMapping.t0@0 struct)
+   (*main.Service).RemoveMapping.t0 = s(=main.NewService.t0@0)->[0] of type *sync.RWMutex
+     ^ field t0 previously defined as (*main.Service).NewMapping.t3
+++ call (*sync.RWMutex).Lock()
+-- return from (*sync.RWMutex).Lock (0 retvals)
+   (*main.Service).RemoveMapping.t2 = s(=main.NewService.t0@0)->[0] of type *sync.RWMutex
+     ^ field t2 previously defined as (*main.Service).NewMapping.t3
+   (*main.Service).RemoveMapping.t3 = s(=main.NewService.t0@0)->[1] of type *[]*main.Mapping
+     ^ field t3 previously defined as (*main.Service).NewMapping.t5
+   # *t3 = *&s.mappings [#1]/(*main.Service).RemoveMapping.t3 (not found, type=[]*main.Mapping)
+++ call builtin len(t4) # TODO (handle builtin)
+   # t7 = t6 + 1:int
+   # t8 = t7 < t5
+   (*main.Service).RemoveMapping.t9 = &t4(=Undefined)[&{{{1374418863136} 7 4309529792 0 [1374418720784 1374418889728 1374418721120 1374418721120]} 12 1374418721120 1374391369824}] (external) of type **main.Mapping
+     ^ accessed for the first time: use t9 as elem definition of type *main.Mapping
+   # *t9 = *&t4[t7]/(*main.Service).RemoveMapping.t9 (not found, type=*main.Mapping)
+   # t11 = t10 == mapping
+++ call (*main.Mapping).clearAddresses(m:caller[(*main.Service).RemoveMapping.mapping] = (*main.Service).NewMapping.t0@0 struct)
+   (*main.Mapping).clearAddresses.t0 = m(=(*main.Service).NewMapping.t0@0)->[0] of type *sync.RWMutex
+     ^ accessed for the first time: use t0 as field definition
+     ^ field t0 is a struct (allocating)
+++ call (*sync.RWMutex).Lock()
+-- return from (*sync.RWMutex).Lock (0 retvals)
+   (*main.Mapping).clearAddresses.t2 = m(=(*main.Service).NewMapping.t0@0)->[1] of type *map[string]main.Address
+     ^ field t2 previously defined as (*main.Service).NewMapping.t1
+   # *t2 = *&m.extAddresses [#1]/(*main.Mapping).clearAddresses.t2 (not found, type=map[string]main.Address)
+   # unhandled t4 = range t3
+   # unhandled t6 = next t4
+   # t7 = extract t6 #0 of type bool
+   # t8 = extract t6 #1 of type string
+   # t9 = extract t6 #2 of type main.Address
+   (*main.Mapping).clearAddresses.t10 = Alloc (array@heap) of type *[1]main.Address (1 elems) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_syncthing_4829/src/main.go:19:33
+   (*main.Mapping).clearAddresses.t11 = &t10(=(*main.Mapping).clearAddresses.t10@0)[&{4309529792 0}] of type *main.Address
+     ^ accessed for the first time: use t11 as elem definition
+   # store *(*main.Mapping).clearAddresses.t11 = (*main.Mapping).clearAddresses.t9 of type main.Address
+++ call builtin append(t5t12) # TODO (handle builtin)
+   (*main.Mapping).clearAddresses.t14 = m(=(*main.Service).NewMapping.t0@0)->[1] of type *map[string]main.Address
+     ^ field t14 previously defined as (*main.Service).NewMapping.t1
+   # *t14 = *&m.extAddresses [#1]/(*main.Mapping).clearAddresses.t14 (not found, type=map[string]main.Address)
+++ call builtin delete(t15t8) # TODO (handle builtin)
+++ call builtin len(t5) # TODO (handle builtin)
+   # t18 = t17 > 0:int
+++ call (*main.Mapping).notify(m:caller[(*main.Mapping).clearAddresses.m] = (*main.Service).NewMapping.t0@0 struct, added:caller[???.nil:[]main.Address] = Undefined, remove:caller[(*main.Mapping).clearAddresses.t5] = Undefined)
+   (*main.Mapping).notify.t0 = m(=(*main.Service).NewMapping.t0@0)->[0] of type *sync.RWMutex
+     ^ field t0 previously defined as (*main.Mapping).clearAddresses.t0
+++ call (*sync.RWMutex).RLock()
+-- return from (*sync.RWMutex).RLock (0 retvals)
+   (*main.Mapping).notify.t2 = m(=(*main.Service).NewMapping.t0@0)->[0] of type *sync.RWMutex
+     ^ field t2 previously defined as (*main.Mapping).clearAddresses.t0
+++ call (*sync.RWMutex).RUnlock()
+-- return from (*sync.RWMutex).RUnlock (0 retvals)
+-- return from (*main.Mapping).notify (0 retvals)
+   (*main.Mapping).clearAddresses.t20 = m(=(*main.Service).NewMapping.t0@0)->[0] of type *sync.RWMutex
+     ^ field t20 previously defined as (*main.Mapping).clearAddresses.t0
+++ call (*sync.RWMutex).Unlock()
+-- return from (*sync.RWMutex).Unlock (0 retvals)
+-- return from (*main.Mapping).clearAddresses (0 retvals)
+++ call (*sync.RWMutex).Unlock()
+-- return from (*sync.RWMutex).Unlock (0 retvals)
+-- return from (*main.Service).RemoveMapping (0 retvals)
+2026/10/31 14:26:42 Analysis finished in 2.786541ms
+ ----- Results ----- 
+# Channels
+
+# Role
+main 
+# Session
+  main: main; (*main.Service).RemoveMapping#2; children: 2 &{(Empty); children: 2 &{(Empty); (*main.Mapping).clearAddresses#1; children: 2 &{(Empty); Goto (*main.Mapping).clearAddresses#1; ,(Empty); children: 2 &{(Empty); (*main.Mapping).clearAddresses#5; ,(Empty); Goto (*main.Mapping).clearAddresses#5; Goto (*main.Service).RemoveMapping#2; }},(Empty); Goto (*main.Service).RemoveMapping#2; },(Empty); }
+
+Total of nodes per role (1 roles)
+	16	: main
+2026/10/31 14:26:42 Machine 0 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_syncthing_4829/out/blocking_syncthing_4829_cfsms
+Total of 0 CFSMs (0 are channels)

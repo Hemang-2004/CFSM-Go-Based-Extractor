@@ -1,0 +1,44 @@
+ssabuild: 2026/10/31 14:26:44 Program loaded and type checked
+++ call.toplevel init()
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *main.lazyEcrProvider (1 fields) at (unknown)
+   # t3 = t2 < 10:int
+@@ queue go (*main.lazyEcrProvider).LazyProvide(p:caller[main.main.t0] = main.main.t0@0 struct)
+   # t1 = t2 + 1:int
+
+LazyProvide
+LOCATION: LazyProvide_622/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_kubernetes_82550/src/main.go:19:27
+   (*main.lazyEcrProvider).LazyProvide.t0 = p(=main.main.t0@0)->[0] of type **main.CachingDockerConfigProvider
+     ^ accessed for the first time: use t0 as field definition
+   # *t0 = *&p.actualProvider [#0]/(*main.lazyEcrProvider).LazyProvide.t0 (not found, type=*main.CachingDockerConfigProvider)
+   # t2 = t1 == nil:*CachingDockerConfigProvider
+   (*main.lazyEcrProvider).LazyProvide.t3 = p(=main.main.t0@0)->[0] of type **main.CachingDockerConfigProvider
+     ^ field t3 previously defined as (*main.lazyEcrProvider).LazyProvide.t0
+   (*main.lazyEcrProvider).LazyProvide.t4 = Alloc (struct@heap) of type *main.CachingDockerConfigProvider (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_kubernetes_82550/src/main.go:21:50
+   store struct *(*main.lazyEcrProvider).LazyProvide.t3 = (*main.lazyEcrProvider).LazyProvide.t4 of type *main.CachingDockerConfigProvider
+   (*main.lazyEcrProvider).LazyProvide.t5 = Alloc (struct@heap) of type *main.DockerConfigEntry (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_kubernetes_82550/src/main.go:23:2
+   (*main.lazyEcrProvider).LazyProvide.t6 = p(=main.main.t0@0)->[0] of type **main.CachingDockerConfigProvider
+     ^ field t6 previously defined as (*main.lazyEcrProvider).LazyProvide.t4
+   (*main.lazyEcrProvider).LazyProvide.t7 = *t6 (struct)
+++ call (*main.CachingDockerConfigProvider).Provide(d:caller[(*main.lazyEcrProvider).LazyProvide.t7] = (*main.lazyEcrProvider).LazyProvide.t4@0 struct)
+   # unhandled t0 = make DockerConfig 0:int
+-- return from (*main.CachingDockerConfigProvider).Provide (1 retvals)
+   # unhandled t9 = t8["0":string]
+   # store *(*main.lazyEcrProvider).LazyProvide.t5 = (*main.lazyEcrProvider).LazyProvide.t9 of type main.DockerConfigEntry
+2026/10/31 14:26:44 Analysis finished in 165.709µs
+ ----- Results ----- 
+# Channels
+
+# Role
+main LazyProvide_622 
+# Session
+  main: main; main.main#3; children: 2 &{(Empty); Goto main.main#3; ,(Empty); }
+  LazyProvide_622: LazyProvide_622; children: 2 &{(Empty); (*main.lazyEcrProvider).LazyProvide#2; ,(Empty); Goto (*main.lazyEcrProvider).LazyProvide#2; }
+
+Total of nodes per role (2 roles)
+	5	: LazyProvide_622
+	5	: main
+2026/10/31 14:26:44 Machine 0 is empty
+2026/10/31 14:26:44 Machine 0 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_kubernetes_82550/out/nonblocking_kubernetes_82550_cfsms
+Total of 0 CFSMs (0 are channels)

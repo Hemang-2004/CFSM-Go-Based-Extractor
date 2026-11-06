@@ -1,0 +1,117 @@
+ssabuild: 2026/10/31 14:26:39 Program loaded and type checked
+++ call.toplevel init()
+++ call.toplevel main()
+++ call main.NewNode()
+   main.NewNode.t0 = Alloc (struct@heap) of type *main.node (3 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:46:14
+   main.NewNode.t1 = t0(=main.NewNode.t0@0)->[0] of type *chan chan main.Status
+     ^ accessed for the first time: use t1 as field definition
+   New channel main.NewNode.t2@0 { type: chan main.Status } by main.NewNode.t2@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:47:15
+               ^ in role main
+   main.NewNode.t3 = t0(=main.NewNode.t0@0)->[1] of type *chan struct{}
+     ^ accessed for the first time: use t3 as field definition
+   New channel main.NewNode.t4@0 { type: struct{} } by main.NewNode.t4@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:48:15
+               ^ in role main
+   main.NewNode.t5 = t0(=main.NewNode.t0@0)->[2] of type *chan struct{}
+     ^ accessed for the first time: use t5 as field definition
+   New channel main.NewNode.t6@0 { type: struct{} } by main.NewNode.t6@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:49:15
+               ^ in role main
+   store chan *main.NewNode.t1 = main.NewNode.t2 of type chan chan main.Status
+   store chan *main.NewNode.t3 = main.NewNode.t4 of type chan struct{}
+   store chan *main.NewNode.t5 = main.NewNode.t6 of type chan struct{}
+-- return from main.NewNode (1 retvals)
+@@ queue go (*main.node).run(n:caller[main.main.t0] = main.NewNode.t0@0 struct)
+@@ queue go (*main.node).Status(n:caller[main.main.t0] = main.NewNode.t0@0 struct)
+@@ queue go (*main.node).Stop(n:caller[main.main.t0] = main.NewNode.t0@0 struct)
+
+run
+LOCATION: run_1093/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:24:16
+   (*main.node).run.t0 = n(=main.NewNode.t0@0)->[0] of type *chan chan main.Status
+     ^ field t0 previously defined as main.NewNode.t2
+   (*main.node).run.t1 = *t0 (previously initalised Chan)
+   (*main.node).run.t2 = n(=main.NewNode.t0@0)->[1] of type *chan struct{}
+     ^ field t2 previously defined as main.NewNode.t4
+   (*main.node).run.t3 = *t2 (previously initalised Chan)
+   select main.NewNode.t2@0 (2 states)
+    Recv run_1093←ᶜʰmain.NewNode.t2@0nondet 
+   select main.NewNode.t4@0 (2 states)
+    Recv run_1093←ᶜʰmain.NewNode.t4@0nondet 
+   | t5 = select t4 index
+  @ Switch to select branch #0
+   # t7 = extract t4 #2 of type chan main.Status
+   (*main.node).run.t8 = Alloc (struct@local) of type *main.Status (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:28:15
+   (*main.node).run.t9 = *t8 (struct)
+  Send run_1093→ᶜʰ(*main.node).run.t7@0* 
+   ^ Send: Channel (*main.node).run.t7 at (unknown) is external
+  @ Switch to select branch #1
+   # t11 = extract t4 #3 of type struct{}
+     ^ local struct (used as definition)
+   (*main.node).run.t12 = n(=main.NewNode.t0@0)->[2] of type *chan struct{}
+     ^ field t12 previously defined as main.NewNode.t6
+   (*main.node).run.t13 = *t12 (previously initalised Chan)
+++ call builtin close(t13 channel main.NewNode.t6@0)
+   # (*main.node).run.t15 <- make interface{} <- string ("blocking select m...":string)
+   # unhandled panic t15
+
+Status
+LOCATION: Status_1114/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:18:16
+   New channel (*main.node).Status.t0@0 { type: main.Status } by (*main.node).Status.t0@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:19:11
+               ^ in role Status_1114
+   (*main.node).Status.t1 = n(=main.NewNode.t0@0)->[0] of type *chan chan main.Status
+     ^ field t1 previously defined as main.NewNode.t2
+   (*main.node).Status.t2 = *t1 (previously initalised Chan)
+  Send Status_1114→ᶜʰmain.NewNode.t2@0 
+  Recv Status_1114←ᶜʰ(*main.node).Status.t0@0
+
+Stop
+LOCATION: Stop_1135/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:36:16
+   (*main.node).Stop.t0 = n(=main.NewNode.t0@0)->[1] of type *chan struct{}
+     ^ field t0 previously defined as main.NewNode.t4
+   (*main.node).Stop.t1 = *t0 (previously initalised Chan)
+   (*main.node).Stop.t2 = Alloc (struct@local) of type *struct{} (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/src/main.go:38:25
+   (*main.node).Stop.t3 = *t2 (struct)
+   (*main.node).Stop.t4 = n(=main.NewNode.t0@0)->[2] of type *chan struct{}
+     ^ field t4 previously defined as main.NewNode.t6
+   (*main.node).Stop.t5 = *t4 (previously initalised Chan)
+   select main.NewNode.t4@0 (2 states)
+    Send Stop_1135→ᶜʰmain.NewNode.t4@0 nondet 
+   select main.NewNode.t6@0 (2 states)
+    Recv Stop_1135←ᶜʰmain.NewNode.t6@0nondet 
+   | t7 = select t6 index
+  @ Switch to select branch #0
+   (*main.node).Stop.t9 = n(=main.NewNode.t0@0)->[2] of type *chan struct{}
+     ^ field t9 previously defined as main.NewNode.t6
+   (*main.node).Stop.t10 = *t9 (previously initalised Chan)
+  Recv Stop_1135←ᶜʰmain.NewNode.t6@0
+  @ Switch to select branch #1
+   # t13 = extract t6 #2 of type struct{}
+     ^ local struct (used as definition)
+   # (*main.node).Stop.t14 <- make interface{} <- string ("blocking select m...":string)
+   # unhandled panic t14
+2026/10/31 14:26:39 Analysis finished in 791.458µs
+ ----- Results ----- 
+# Channels
+main.NewNode.t6@0 (*main.node).run.t7@0* (*main.node).Status.t0@0 main.NewNode.t2@0 main.NewNode.t4@0 
+# Role
+Status_1114 Stop_1135 main run_1093 
+# Session
+  main: main; NewChan main.NewNode.t2@0 of type chan main.Status; NewChan main.NewNode.t4@0 of type struct{}; NewChan main.NewNode.t6@0 of type struct{}; 
+  run_1093: run_1093; (*main.node).run#1; children: 2 &{Recv run_1093←ᶜʰmain.NewNode.t2@0nondet ; Send run_1093→ᶜʰ(*main.node).run.t7@0* ; Goto (*main.node).run#1; ,Recv run_1093←ᶜʰmain.NewNode.t4@0nondet ; End main.NewNode.t6@0; }
+  Status_1114: Status_1114; NewChan (*main.node).Status.t0@0 of type main.Status; Send Status_1114→ᶜʰmain.NewNode.t2@0 ; Recv Status_1114←ᶜʰ(*main.node).Status.t0@0; 
+  Stop_1135: Stop_1135; children: 2 &{Send Stop_1135→ᶜʰmain.NewNode.t4@0 nondet ; Recv Stop_1135←ᶜʰmain.NewNode.t6@0; ,Recv Stop_1135←ᶜʰmain.NewNode.t6@0nondet ; }
+
+Total of nodes per role (4 roles)
+	4	: main
+	7	: run_1093
+	4	: Status_1114
+	4	: Stop_1135
+2026/10/31 14:26:39 Machine 7 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_etcd_6857/out/blocking_etcd_6857_cfsms
+Total of 8 CFSMs (5 are channels)
+	3	= (*main.node).run.t7@0* (channel)
+	4	= (*main.node).Status.t0@0 (channel)
+	0	= main.NewNode.t2@0 (channel)
+	1	= main.NewNode.t4@0 (channel)
+	2	= main.NewNode.t6@0 (channel)
+	6	= Stop_1135
+	7	= run_1093
+	5	= Status_1114

@@ -1,0 +1,50 @@
+
+-- Machines #0
+-- main.newCacheWatcher.t2@0
+.outputs
+.state graph
+q00 2 ? mainDOTwatchCacheEvent q02
+q00 3 ? mainDOTwatchCacheEvent q03
+q01 3 ! STOP q01
+q01 3 ? STOP q01
+q01 2 ! STOP q01
+q01 2 ? STOP q01
+q02 3 ! mainDOTwatchCacheEvent q00
+q03 2 ! mainDOTwatchCacheEvent q00
+.marking q00
+.end
+
+-- Machines #1
+-- main.newCacheWatcher.t4@0
+.outputs
+.state graph
+q10 2 ? mainDOTEvent q12
+q10 3 ? mainDOTEvent q13
+q11 2 ? STOP q11
+q11 3 ! STOP q11
+q11 3 ? STOP q11
+q11 2 ! STOP q11
+q12 3 ! mainDOTEvent q10
+q13 2 ! mainDOTEvent q10
+.marking q10
+.end
+
+-- Machines #2
+-- process_895
+.outputs
+.state graph
+q20 0 ? STOP q21
+q20 1 ! mainDOTEvent q20
+q20 0 ? mainDOTwatchCacheEvent q20
+q21 1 ! STOP q23
+q21 0 ! STOP q22
+.marking q20
+.end
+
+-- Machines #3
+-- main
+.outputs
+.state graph
+q30 0 ! STOP q31
+.marking q30
+.end

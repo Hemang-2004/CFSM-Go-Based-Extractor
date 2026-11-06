@@ -1,0 +1,65 @@
+
+-- Machines #0
+-- main.NewStoreAndState.t6@0
+.outputs
+.state graph
+q00 3 ? interfaceLBRACERBRACE q02
+q00 4 ? interfaceLBRACERBRACE q03
+q01 3 ? STOP q01
+q01 4 ! STOP q01
+q01 4 ? STOP q01
+q01 3 ! STOP q01
+q02 4 ! interfaceLBRACERBRACE q00
+q03 3 ! interfaceLBRACERBRACE q00
+.marking q00
+.end
+
+-- Machines #1
+-- main.NewStoreAndState.t8@0
+.outputs
+.state graph
+q10 3 ? funcLPARENRPAREN q12
+q10 4 ? funcLPARENRPAREN q13
+q11 3 ! STOP q11
+q11 3 ? STOP q11
+q11 4 ! STOP q11
+q11 4 ? STOP q11
+q12 4 ! funcLPARENRPAREN q10
+q13 3 ! funcLPARENRPAREN q10
+.marking q10
+.end
+
+-- Machines #2
+-- main.NewStoreAndState.t2@0
+.outputs
+.state graph
+q20 3 ? bool q22
+q20 4 ? bool q23
+q21 3 ! STOP q21
+q21 3 ? STOP q21
+q21 4 ! STOP q21
+q21 4 ? STOP q21
+q22 4 ! bool q20
+q23 3 ! bool q20
+.marking q20
+.end
+
+-- Machines #3
+-- processRaft_1864
+.outputs
+.state graph
+q30 0 ? interfaceLBRACERBRACE q31
+q30 2 ? bool q32
+.marking q30
+.end
+
+-- Machines #4
+-- start_1890
+.outputs
+.state graph
+q40 2 ? bool q41
+q40 1 ? funcLPARENRPAREN q40
+q40 0 ! interfaceLBRACERBRACE q42
+q40 2 ? bool q43
+.marking q40
+.end

@@ -1,0 +1,116 @@
+ssabuild: 2026/10/31 14:26:43 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:43 Skip package: runtime (Runtime contains threads that are not user related)
+ssabuild: 2026/10/31 14:26:43 Skip package: time (Time not supported)
+ssabuild: 2026/10/31 14:26:43 Skip package: sync (Atomics confuse analyser)
+++ call.toplevel init()
+   # store (global) *???.leaseRevokeRate = ???.1000:int of type int
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *sync.WaitGroup (3 fields) at (unknown)
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+@@ queue go main.main$1(, capture wg = main.main.t0@0)
+@@ queue go main.main$2(, capture wg = main.main.t0@0)
+++ call (*sync.WaitGroup).Wait()
+-- return from (*sync.WaitGroup).Wait (0 retvals)
+
+main$1
+LOCATION: t2_884/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:66:5
+++ call main.testLessorGrant()
+++ call main.newLessor()
+   main.newLessor.t0 = Alloc (struct@heap) of type *main.lessor (3 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:53:14
+@@ queue go (*main.lessor).runLoop(le:caller[main.newLessor.t0] = main.newLessor.t0@0 struct)
+-- return from main.newLessor (1 retvals)
+-- return from main.testLessorGrant (0 retvals)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+main$2
+LOCATION: t3_940/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:70:5
+++ call main.testLessorRenewExtendPileup()
+   # t0 = Alloc new int (oldRevokeRate) of type int
+   main.testLessorRenewExtendPileup.t1 = *leaseRevokeRate (global) of type *int
+    ^ i.e. ???.leaseRevokeRate@0
+   # *leaseRevokeRate = *main.leaseRevokeRate/???.leaseRevokeRate (not found, type=int)
+   # store *main.testLessorRenewExtendPileup.t0 = main.testLessorRenewExtendPileup.t1 of type int
+   # store (global) *???.leaseRevokeRate = ???.10:int of type int
+   # TODO (handle closure) make closure testLessorRenewExtendPileup$1 [t0]
+-- return from main.testLessorRenewExtendPileup (0 retvals)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+runLoop
+LOCATION: runLoop_765/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:24:19
+   (*main.lessor).runLoop.t0 = le(=main.newLessor.t0@0)->[2] of type *chan struct{}
+     ^ accessed for the first time: use t0 as field definition
+   # *t0 = *&le.doneC [#2]/(*main.lessor).runLoop.t0 (not found, type=chan struct{})
+   # t10 = t9 < 10:int
+   (*main.lessor).runLoop.t2 = Alloc (struct@heap) of type *main.Lease (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:30:25
+   (*main.lessor).runLoop.t3 = Alloc (array@heap) of type *[1]*main.Lease (1 elems) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:30:27
+   (*main.lessor).runLoop.t4 = &t3(=(*main.lessor).runLoop.t3@0)[&{4310873280 0}] of type **main.Lease
+     ^ accessed for the first time: use t4 as elem definition
+   store struct *(*main.lessor).runLoop.t4 = (*main.lessor).runLoop.t2 of type *main.Lease
+++ call builtin append(nil:[]*main.Leaset5) # TODO (handle builtin)
+++ call builtin len(t6) # TODO (handle builtin)
+   # t8 = t7 != 0:int
+++ call builtin len(t6) # TODO (handle builtin)
+   (*main.lessor).runLoop.t12 = *leaseRevokeRate (global) of type *int
+    ^ i.e. ???.leaseRevokeRate@0
+   # *leaseRevokeRate = *main.leaseRevokeRate/???.leaseRevokeRate (not found, type=int)
+   # t13 = t12 / 2:int
+   # t14 = t11 > t13
+   (*main.lessor).runLoop.t21 = *leaseRevokeRate (global) of type *int
+    ^ i.e. ???.leaseRevokeRate@0
+   # *leaseRevokeRate = *main.leaseRevokeRate/???.leaseRevokeRate (not found, type=int)
+   # t22 = t21 / 2:int
+   (*main.lessor).runLoop.t24 = le(=main.newLessor.t0@0)->[1] of type *chan struct{}
+     ^ accessed for the first time: use t24 as field definition
+   # *t24 = *&le.stopC [#1]/(*main.lessor).runLoop.t24 (not found, type=chan struct{})
+Called by: (*main.lessor).runLoop()
+Called by: main.newLessor()
+Called by: main.testLessorGrant()
+Called by: main.main$1()
+panic: Select: Channel (*main.lessor).runLoop.t25 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_8194/src/main.go:38:14 is undefined
+
+goroutine 330 [running]:
+github.com/nickng/dingo-hunter/cfsmextract.visitSelect(0x14005809b00, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:328 +0xafc
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x100be32e0?, 0x14005809b00?}, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:85 +0x5c0
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x14005814630?, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitJump(0x100b3ae40?, 0x14005a7baa0?)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:480 +0x34
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x100be2c20?, 0x140057ec740?}, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:97 +0x9c0
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x14005a928a0?, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitIf(0x14005798c60, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:399 +0xae4
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x100be2ab8?, 0x14005798c60?}, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:94 +0x630
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x14005a92828?, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitIf(0x14005798c30, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:399 +0xae4
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x100be2ab8?, 0x14005798c30?}, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:94 +0x630
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x14005a91f80?, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitIf(0x14005798bd0, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:399 +0xae4
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x100be2ab8?, 0x14005798bd0?}, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:94 +0x630
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x140058142c0?, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitJump(0x100b9e100?, 0x100f81c80?)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:480 +0x34
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x100be2c20?, 0x140057ec700?}, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:97 +0x9c0
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x100bdb7c0?, 0x14005a86980)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitFunc(...)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:41
+github.com/nickng/dingo-hunter/cfsmextract.(*CFSMExtract).Run(0x14005a836e0)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/cfsmextract.go:99 +0x73c
+created by github.com/nickng/dingo-hunter/cmd.extractCFSMs
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cmd/cfsms.go:80 +0x44c

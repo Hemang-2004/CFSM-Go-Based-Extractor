@@ -1,0 +1,148 @@
+ssabuild: 2026/10/31 14:26:40 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:40 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:40 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *main.controller (1 fields) at (unknown)
+   main.main.t1 = t0(=main.main.t0@0)->[0] of type *main.Monitor
+     ^ accessed for the first time: use t1 as field definition
+++ call main.NewMonitor()
+++ call main.NewBufferedMonitor()
+   main.NewBufferedMonitor.t0 = Alloc (struct@heap) of type *main.configstoreMonitor (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_istio_16224/src/main.go:81:28
+   main.NewBufferedMonitor.t1 = t0(=main.NewBufferedMonitor.t0@0)->[1] of type *chan main.Event
+     ^ accessed for the first time: use t1 as field definition
+   New channel main.NewBufferedMonitor.t2@0 { type: main.Event } by main.NewBufferedMonitor.t2@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_istio_16224/src/main.go:82:16
+               ^ in role main
+   store chan *main.NewBufferedMonitor.t1 = main.NewBufferedMonitor.t2 of type chan main.Event
+   main.NewBufferedMonitor.t3 <-(struct/iface)- main.NewBufferedMonitor.t0 make Monitor <- *configstoreMonitor (t0) = main.NewBufferedMonitor.t0@0
+-- return from main.NewBufferedMonitor (1 retvals)
+-- return from main.NewMonitor (1 retvals)
+   store struct *main.main.t1 = main.main.t2 of type main.Monitor
+   main.main.t3 = Alloc (chan) of type *chan bool at (unknown)
+   New channel main.main.t4@0 { type: bool } by main.main.t4@0 at (unknown)
+               ^ in role main
+   store chan *main.main.t3 = main.main.t4 of type chan bool
+   main.main.t5 = Alloc (struct@heap) of type *sync.Mutex (2 fields) at (unknown)
+++ call (*main.controller).RegisterEventHandler(c:caller[main.main.t0] = main.main.t0@0 struct, f:caller[main.main.t6] = Undefined)
+   (*main.controller).RegisterEventHandler.t0 = c(=main.main.t0@0)->[0] of type *main.Monitor
+     ^ field t0 previously defined as main.NewBufferedMonitor.t0
+   (*main.controller).RegisterEventHandler.t1 = *t0 (struct)
+   # changetype t2 = f changetype Handler <- func(Event) (f)
+          ^ unknown kind
+++ invoke (*main.controller).RegisterEventHandler.t1.func (main.Monitor).AppendEventHandler(main.Handler), type=*main.configstoreMonitor
+     ^ finding method for type: *main.configstoreMonitor pkg: main name: AppendEventHandler
+     ^ found function (*main.configstoreMonitor).AppendEventHandler
+++ call (*main.configstoreMonitor).AppendEventHandler(m:caller[(*main.controller).RegisterEventHandler.t1] = main.NewBufferedMonitor.t0@0 struct, h:caller[(*main.controller).RegisterEventHandler.t2] = Undefined)
+   (*main.configstoreMonitor).AppendEventHandler.t0 = m(=main.NewBufferedMonitor.t0@0)->[0] of type *[]main.Handler
+     ^ accessed for the first time: use t0 as field definition
+   (*main.configstoreMonitor).AppendEventHandler.t1 = m(=main.NewBufferedMonitor.t0@0)->[0] of type *[]main.Handler
+     ^ field t1 previously defined as (*main.configstoreMonitor).AppendEventHandler.t0
+   # *t1 = *&m.handlers [#0]/(*main.configstoreMonitor).AppendEventHandler.t1 (not found, type=[]main.Handler)
+   (*main.configstoreMonitor).AppendEventHandler.t3 = Alloc (array@heap) of type *[1]main.Handler (1 elems) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_istio_16224/src/main.go:42:35
+   (*main.configstoreMonitor).AppendEventHandler.t4 = &t3(=(*main.configstoreMonitor).AppendEventHandler.t3@0)[&{4344657088 0}] of type *main.Handler
+     ^ accessed for the first time: use t4 as elem definition
+   # store *(*main.configstoreMonitor).AppendEventHandler.t4 = (*main.configstoreMonitor).AppendEventHandler.h of type main.Handler
+++ call builtin append(t2t5) # TODO (handle builtin)
+   # store *(*main.configstoreMonitor).AppendEventHandler.t0 = (*main.configstoreMonitor).AppendEventHandler.t6 of type []main.Handler
+-- return from (*main.configstoreMonitor).AppendEventHandler (0 retvals)
+-- return from (*main.controller).RegisterEventHandler (0 retvals)
+   New channel main.main.t8@0 { type: struct{} } by main.main.t8@0 at (unknown)
+               ^ in role main
+   & changetype from main.main.t8 to main.main.t9 (channel main.main.t8@0)
+                      ^ origin
+@@ queue go (*main.controller).Run(c:caller[main.main.t0] = main.main.t0@0 struct, stop:caller[main.main.t9] = main.main.t8@0 channel main.main.t8@0)
+++ call (*main.controller).Create(c:caller[main.main.t0] = main.main.t0@0 struct)
+   (*main.controller).Create.t0 = c(=main.main.t0@0)->[0] of type *main.Monitor
+     ^ field t0 previously defined as main.NewBufferedMonitor.t0
+   (*main.controller).Create.t1 = *t0 (struct)
+++ invoke (*main.controller).Create.t1.func (main.Monitor).ScheduleProcessEvent(main.Event), type=*main.configstoreMonitor
+     ^ finding method for type: *main.configstoreMonitor pkg: main name: ScheduleProcessEvent
+     ^ found function (*main.configstoreMonitor).ScheduleProcessEvent
+++ call (*main.configstoreMonitor).ScheduleProcessEvent(m:caller[(*main.controller).Create.t1] = main.NewBufferedMonitor.t0@0 struct, configEvent:caller[???.0:main.Event] = Undefined)
+   (*main.configstoreMonitor).ScheduleProcessEvent.t0 = m(=main.NewBufferedMonitor.t0@0)->[1] of type *chan main.Event
+     ^ field t0 previously defined as main.NewBufferedMonitor.t2
+   (*main.configstoreMonitor).ScheduleProcessEvent.t1 = *t0 (previously initalised Chan)
+  Send main→ᶜʰmain.NewBufferedMonitor.t2@0 
+-- return from (*main.configstoreMonitor).ScheduleProcessEvent (0 retvals)
+-- return from (*main.controller).Create (0 retvals)
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+   main.main.t13 = *t3 (previously initalised Chan)
+  Recv main←ᶜʰmain.main.t4@0
+++ call builtin close(t8 channel main.main.t8@0)
+
+Run
+LOCATION: Run_1670/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_istio_16224/src/main.go:68:22
+   (*main.controller).Run.t0 = c(=main.main.t0@0)->[0] of type *main.Monitor
+     ^ field t0 previously defined as main.NewBufferedMonitor.t0
+   (*main.controller).Run.t1 = *t0 (struct)
+++ invoke (*main.controller).Run.t1.func (main.Monitor).Run(<-chan struct{}), type=*main.configstoreMonitor
+     ^ finding method for type: *main.configstoreMonitor pkg: main name: Run
+     ^ found function (*main.configstoreMonitor).Run
+++ call (*main.configstoreMonitor).Run(m:caller[(*main.controller).Run.t1] = main.NewBufferedMonitor.t0@0 struct, stop:caller[(*main.controller).Run.stop] = main.main.t8@0 channel main.main.t8@0)
+   (*main.configstoreMonitor).Run.t0 = m(=main.NewBufferedMonitor.t0@0)->[1] of type *chan main.Event
+     ^ field t0 previously defined as main.NewBufferedMonitor.t2
+   (*main.configstoreMonitor).Run.t1 = *t0 (previously initalised Chan)
+   select main.main.t8@0 (2 states)
+    Recv Run_1670←ᶜʰmain.main.t8@0nondet 
+   select main.NewBufferedMonitor.t2@0 (2 states)
+    Recv Run_1670←ᶜʰmain.NewBufferedMonitor.t2@0nondet 
+   | t3 = select t2 index
+  @ Switch to select branch #0
+   # t5 = extract t2 #2 of type struct{}
+     ^ local struct (used as definition)
+   (*main.configstoreMonitor).Run.t6 = m(=main.NewBufferedMonitor.t0@0)->[1] of type *chan main.Event
+     ^ field t6 previously defined as main.NewBufferedMonitor.t2
+   (*main.configstoreMonitor).Run.t7 = *t6 (previously initalised Chan)
+   # t9 = extract t8 #0 of type main.Event
+  EXTRACT for main.NewBufferedMonitor.t2@0
+  @ Switch to recvtest true
+  Recv Run_1670←ᶜʰmain.NewBufferedMonitor.t2@0
+   (*main.configstoreMonitor).Run.t12 = m(=main.NewBufferedMonitor.t0@0)->[1] of type *chan main.Event
+     ^ field t12 previously defined as main.NewBufferedMonitor.t2
+   (*main.configstoreMonitor).Run.t13 = *t12 (previously initalised Chan)
+++ call builtin close(t13 channel main.NewBufferedMonitor.t2@0)
+  @ Switch to recvtest false
+  Recv Run_1670←ᶜʰmain.NewBufferedMonitor.t2@0
+  @ Switch to select branch #1
+   # t15 = extract t2 #3 of type main.Event
+   # t16 = extract t2 #1 of type bool
+++ call (*main.configstoreMonitor).processConfigEvent(m:caller[(*main.configstoreMonitor).Run.m] = main.NewBufferedMonitor.t0@0 struct, ce:caller[(*main.configstoreMonitor).Run.t15] = Undefined)
+++ call (*main.configstoreMonitor).applyHandlers(m:caller[(*main.configstoreMonitor).processConfigEvent.m] = main.NewBufferedMonitor.t0@0 struct, e:caller[(*main.configstoreMonitor).processConfigEvent.ce] = Undefined)
+   (*main.configstoreMonitor).applyHandlers.t0 = m(=main.NewBufferedMonitor.t0@0)->[0] of type *[]main.Handler
+     ^ field t0 previously defined as (*main.configstoreMonitor).AppendEventHandler.t0
+   # *t0 = *&m.handlers [#0]/(*main.configstoreMonitor).applyHandlers.t0 (not found, type=[]main.Handler)
+++ call builtin len(t1) # TODO (handle builtin)
+   # t4 = t3 + 1:int
+   # t5 = t4 < t2
+   (*main.configstoreMonitor).applyHandlers.t6 = &t1(=Undefined)[&{{{1374440670768} 4 4344657088 0 [1374440591632 1374440711488 1374440591856]} 12 1374440591856 1374390124672}] (external) of type *main.Handler
+     ^ accessed for the first time: use t6 as elem definition of type func(main.Event)
+   # *t6 = *&t1[t4]/(*main.configstoreMonitor).applyHandlers.t6 (not found, type=main.Handler)
+Unknown call type t7(e)
+-- return from (*main.configstoreMonitor).applyHandlers (0 retvals)
+-- return from (*main.configstoreMonitor).processConfigEvent (0 retvals)
+   # (*main.configstoreMonitor).Run.t17 <- make interface{} <- string ("blocking select m...":string)
+   # unhandled panic t17
+-- return from (*main.configstoreMonitor).Run (0 retvals)
+2026/10/31 14:26:40 Analysis finished in 787.25µs
+ ----- Results ----- 
+# Channels
+main.NewBufferedMonitor.t2@0 main.main.t4@0 main.main.t8@0 
+# Role
+main Run_1670 
+# Session
+  main: main; NewChan main.NewBufferedMonitor.t2@0 of type main.Event; NewChan main.main.t4@0 of type bool; NewChan main.main.t8@0 of type struct{}; Send main→ᶜʰmain.NewBufferedMonitor.t2@0 ; Recv main←ᶜʰmain.main.t4@0; End main.main.t8@0; 
+  Run_1670: Run_1670; (*main.configstoreMonitor).Run#1; children: 2 &{Recv Run_1670←ᶜʰmain.main.t8@0nondet ; children: 2 &{Recv Run_1670←ᶜʰmain.NewBufferedMonitor.t2@0; End main.NewBufferedMonitor.t2@0; (*main.configstoreMonitor).Run#5; ,Recv Run_1670←ᶜʰmain.NewBufferedMonitor.t2@0; Goto (*main.configstoreMonitor).Run#5; },Recv Run_1670←ᶜʰmain.NewBufferedMonitor.t2@0nondet ; children: 2 &{(Empty); (*main.configstoreMonitor).applyHandlers#1; children: 2 &{(Empty); Goto (*main.configstoreMonitor).applyHandlers#1; ,(Empty); Goto (*main.configstoreMonitor).Run#1; },(Empty); Goto (*main.configstoreMonitor).Run#1; }}
+
+Total of nodes per role (2 roles)
+	7	: main
+	17	: Run_1670
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_istio_16224/out/blocking_istio_16224_cfsms
+Total of 5 CFSMs (3 are channels)
+	0	= main.NewBufferedMonitor.t2@0 (channel)
+	1	= main.main.t4@0 (channel)
+	2	= main.main.t8@0 (channel)
+	3	= main
+	4	= Run_1670

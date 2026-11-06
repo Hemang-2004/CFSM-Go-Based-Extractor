@@ -1,0 +1,95 @@
+ssabuild: 2026/10/31 14:26:38 Program loaded and type checked
+++ call.toplevel init()
+++ call.toplevel main()
+++ call main.NewStopper()
+   main.NewStopper.t0 = Alloc (struct@heap) of type *main.Stopper (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_25456/src/main.go:15:17
+   main.NewStopper.t1 = t0(=main.NewStopper.t0@0)->[0] of type *chan struct{}
+     ^ accessed for the first time: use t1 as field definition
+   New channel main.NewStopper.t2@0 { type: struct{} } by main.NewStopper.t2@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_25456/src/main.go:15:32
+               ^ in role main
+   store chan *main.NewStopper.t1 = main.NewStopper.t2 of type chan struct{}
+-- return from main.NewStopper (1 retvals)
+   main.main.t1 = Alloc (struct@heap) of type *main.testContext (2 fields) at (unknown)
+++ call (*main.testContext).StartWithStoreConfig(tc:caller[main.main.t1] = main.main.t1@0 struct, stopper:caller[main.main.t0] = main.NewStopper.t0@0 struct)
+   (*main.testContext).StartWithStoreConfig.t0 = tc(=main.main.t1@0)->[0] of type **main.Store
+     ^ accessed for the first time: use t0 as field definition
+   # *t0 = *&tc.store [#0]/(*main.testContext).StartWithStoreConfig.t0 (not found, type=*main.Store)
+   # t2 = t1 == nil:*Store
+   (*main.testContext).StartWithStoreConfig.t3 = tc(=main.main.t1@0)->[0] of type **main.Store
+     ^ field t3 previously defined as (*main.testContext).StartWithStoreConfig.t0
+++ call main.NewStore()
+   main.NewStore.t0 = Alloc (struct@heap) of type *main.Store (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_25456/src/main.go:31:15
+   main.NewStore.t1 = t0(=main.NewStore.t0@0)->[1] of type **main.consistencyQueue
+     ^ accessed for the first time: use t1 as field definition
+++ call main.newConsistencyQueue()
+   main.newConsistencyQueue.t0 = Alloc (struct@heap) of type *main.consistencyQueue (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_25456/src/main.go:51:26
+-- return from main.newConsistencyQueue (1 retvals)
+   store struct *main.NewStore.t1 = main.NewStore.t2 of type *main.consistencyQueue
+-- return from main.NewStore (1 retvals)
+   store struct *(*main.testContext).StartWithStoreConfig.t3 = (*main.testContext).StartWithStoreConfig.t4 of type *main.Store
+   (*main.testContext).StartWithStoreConfig.t5 = tc(=main.main.t1@0)->[0] of type **main.Store
+     ^ field t5 previously defined as main.NewStore.t0
+   (*main.testContext).StartWithStoreConfig.t6 = *t5 (struct)
+++ call (*main.Store).Start(s:caller[(*main.testContext).StartWithStoreConfig.t6] = main.NewStore.t0@0 struct, stopper:caller[(*main.testContext).StartWithStoreConfig.stopper] = main.NewStopper.t0@0 struct)
+   (*main.Store).Start.t0 = s(=main.NewStore.t0@0)->[0] of type **main.Stopper
+     ^ accessed for the first time: use t0 as field definition
+   store struct *(*main.Store).Start.t0 = (*main.Store).Start.stopper of type *main.Stopper
+-- return from (*main.Store).Start (0 retvals)
+   (*main.testContext).StartWithStoreConfig.t8 = tc(=main.main.t1@0)->[1] of type **main.Replica
+     ^ accessed for the first time: use t8 as field definition
+   (*main.testContext).StartWithStoreConfig.t9 = tc(=main.main.t1@0)->[0] of type **main.Store
+     ^ field t9 previously defined as main.NewStore.t0
+   (*main.testContext).StartWithStoreConfig.t10 = *t9 (struct)
+++ call main.NewReplica(store:caller[(*main.testContext).StartWithStoreConfig.t10] = main.NewStore.t0@0 struct)
+   main.NewReplica.t0 = Alloc (struct@heap) of type *main.Replica (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_25456/src/main.go:41:17
+   main.NewReplica.t1 = t0(=main.NewReplica.t0@0)->[0] of type **main.Store
+     ^ accessed for the first time: use t1 as field definition
+   store struct *main.NewReplica.t1 = main.NewReplica.store of type *main.Store
+-- return from main.NewReplica (1 retvals)
+   store struct *(*main.testContext).StartWithStoreConfig.t8 = (*main.testContext).StartWithStoreConfig.t11 of type *main.Replica
+-- return from (*main.testContext).StartWithStoreConfig (0 retvals)
+   # t12 = t11 < 2:int
+   main.main.t3 = t1(=main.main.t1@0)->[0] of type **main.Store
+     ^ field t3 previously defined as main.NewStore.t0
+   main.main.t4 = *t3 (struct)
+   main.main.t5 = t4(=main.NewStore.t0@0)->[1] of type **main.consistencyQueue
+     ^ field t5 previously defined as main.newConsistencyQueue.t0
+   main.main.t6 = *t5 (struct)
+   main.main.t7 = t1(=main.main.t1@0)->[1] of type **main.Replica
+     ^ field t7 previously defined as main.NewReplica.t0
+   main.main.t8 = *t7 (struct)
+++ call (*main.consistencyQueue).process(q:caller[main.main.t6] = main.newConsistencyQueue.t0@0 struct, repl:caller[main.main.t8] = main.NewReplica.t0@0 struct)
+   (*main.consistencyQueue).process.t0 = repl(=main.NewReplica.t0@0)->[0] of type **main.Store
+     ^ field t0 previously defined as main.NewStore.t0
+   (*main.consistencyQueue).process.t1 = *t0 (struct)
+++ call (*main.Store).Stopper(s:caller[(*main.consistencyQueue).process.t1] = main.NewStore.t0@0 struct)
+   (*main.Store).Stopper.t0 = s(=main.NewStore.t0@0)->[0] of type **main.Stopper
+     ^ field t0 previously defined as main.NewStopper.t0
+   (*main.Store).Stopper.t1 = *t0 (struct)
+-- return from (*main.Store).Stopper (1 retvals)
+++ call (*main.Stopper).ShouldQuiesce(s:caller[(*main.consistencyQueue).process.t2] = main.NewStopper.t0@0 struct)
+   # t0 = s == nil:*Stopper
+   (*main.Stopper).ShouldQuiesce.t1 = s(=main.NewStopper.t0@0)->[0] of type *chan struct{}
+     ^ field t1 previously defined as main.NewStopper.t2
+   (*main.Stopper).ShouldQuiesce.t2 = *t1 (previously initalised Chan)
+   & changetype from (*main.Stopper).ShouldQuiesce.t2 to (*main.Stopper).ShouldQuiesce.t3 (channel main.NewStopper.t2@0)
+                      ^ origin
+-- return from (*main.Stopper).ShouldQuiesce (1 retvals)
+  Recv main←ᶜʰmain.NewStopper.t2@0
+-- return from (*main.consistencyQueue).process (0 retvals)
+   # t10 = t11 + 1:int
+2026/10/31 14:26:38 Analysis finished in 724.958µs
+ ----- Results ----- 
+# Channels
+main.NewStopper.t2@0 
+# Role
+main 
+# Session
+  main: main; NewChan main.NewStopper.t2@0 of type struct{}; children: 2 &{(Empty); (*main.testContext).StartWithStoreConfig#2; ,(Empty); Goto (*main.testContext).StartWithStoreConfig#2; main.main#3; children: 2 &{(Empty); children: 2 &{(Empty); ,(Empty); Recv main←ᶜʰmain.NewStopper.t2@0; Goto main.main#3; },(Empty); }}
+
+Total of nodes per role (1 roles)
+	13	: main
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_25456/out/blocking_cockroach_25456_cfsms
+Total of 2 CFSMs (1 are channels)
+	0	= main.NewStopper.t2@0 (channel)
+	1	= main

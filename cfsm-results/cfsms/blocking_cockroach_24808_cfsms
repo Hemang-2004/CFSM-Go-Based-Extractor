@@ -1,0 +1,28 @@
+
+-- Machines #0
+-- main.NewStopper.t2@0
+.outputs
+.state graph
+q00 2 ? structLBRACERBRACE q02
+q01 2 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- main.NewCompactor.t2@0
+.outputs
+.state graph
+q10 2 ? structLBRACERBRACE q12
+q11 2 ? STOP q11
+.marking q10
+.end
+
+-- Machines #2
+-- main
+.outputs
+.state graph
+q20 1 ! structLBRACERBRACE q21
+q21 1 ! structLBRACERBRACE q22
+q22 0 ! STOP q23
+.marking q20
+.end

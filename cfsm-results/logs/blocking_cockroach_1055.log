@@ -1,0 +1,102 @@
+ssabuild: 2026/10/31 14:26:38 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:38 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:38 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+++ call.toplevel main()
+   # t0 = Alloc new []*Stopper (stoppers) of type []*main.Stopper
+   # t11 = t10 < 3:int
+   # *t0 = *new []*Stopper (stoppers) (not found)
+++ call main.NewStopper()
+   main.NewStopper.t0 = Alloc (struct@heap) of type *main.Stopper (5 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_1055/src/main.go:61:17
+   main.NewStopper.t1 = t0(=main.NewStopper.t0@0)->[0] of type *chan struct{}
+     ^ accessed for the first time: use t1 as field definition
+   New channel main.NewStopper.t2@0 { type: struct{} } by main.NewStopper.t2@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_1055/src/main.go:62:16
+               ^ in role main
+   store chan *main.NewStopper.t1 = main.NewStopper.t2 of type chan struct{}
+-- return from main.NewStopper (1 retvals)
+   main.main.t3 = Alloc (array@heap) of type *[1]*main.Stopper (1 elems) at (unknown)
+   main.main.t4 = &t3(=main.main.t3@0)[&{4344067264 0}] of type **main.Stopper
+     ^ accessed for the first time: use t4 as elem definition
+   store struct *main.main.t4 = main.main.t2 of type *main.Stopper
+++ call builtin append(t1t5) # TODO (handle builtin)
+   # store *main.main.t0 = main.main.t6 of type []*main.Stopper
+   # t7 = t10 + 1:int
+   # *t0 = *new []*Stopper (stoppers) (not found)
+++ call builtin len(t8) # TODO (handle builtin)
+   # t13 = t12 + 1:int
+   # t14 = t13 < t9
+   # t15 = Alloc new *Stopper (s) of type *main.Stopper
+   # *t0 = *new []*Stopper (stoppers) (not found)
+   main.main.t17 = &t16(=Undefined)[&{{{1374428662880} 13 4344067264 0 [1374391720848 1374404314432 1374404314688 1374428682528 1374391772480]} 12 1374391772480 1374390878304}] (external) of type **main.Stopper
+     ^ accessed for the first time: use t17 as elem definition of type *main.Stopper
+   # *t17 = *&t16[t13]/main.main.t17 (not found, type=*main.Stopper)
+   # store *main.main.t15 = main.main.t18 of type *main.Stopper
+   # *t15 = *new *Stopper (s) (not found)
+++ call (*main.Stopper).AddWorker(s:caller[main.main.t19] = Undefined)
+   (*main.Stopper).AddWorker.t0 = s(=Undefined)->[1] (external) of type *sync.WaitGroup
+     ^ accessed for the first time: use t0 as field definition of type struct{noCopy sync.noCopy; state1 uint64; state2 uint32}
+     ^ field t0 previously defined as (*main.Stopper).AddWorker.t0
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+-- return from (*main.Stopper).AddWorker (0 retvals)
+@@ queue go main.main$1(, capture s = Undefined)
+   main.main.t22 = Alloc (chan) of type *chan struct{} at (unknown)
+   New channel main.main.t23@0 { type: struct{} } by main.main.t23@0 at (unknown)
+               ^ in role main
+   store chan *main.main.t22 = main.main.t23 of type chan struct{}
+@@ queue go main.main$2(, capture stoppers = Undefined, capture done = main.main.t23@0)
+   main.main.t25 = *t22 (previously initalised Chan)
+  Recv main←ᶜʰmain.main.t23@0
+
+main$1
+LOCATION: t21_1098/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_1055/src/main.go:76:6
+   # *s = *freevar s : **Stopper/main.main$1.s (not found, type=*main.Stopper)
+++ call (*main.Stopper).StartTask(s:caller[main.main$1.t0] = Undefined)
+   (*main.Stopper).StartTask.t0 = s(=Undefined)->[3] (external) of type *int32
+     ^ accessed for the first time: use t0 as field definition of type int32
+++ call sync/atomic.LoadInt32(addr:caller[(*main.Stopper).StartTask.t0] = (*main.Stopper).StartTask.t0@0)
+-- Return from sync/atomic.LoadInt32 (builtin/ext) with a single value
+-- return from sync/atomic.LoadInt32 (1 retvals)
+   # t2 = t1 == 0:int32
+   (*main.Stopper).StartTask.t3 = s(=(*main.Stopper).StartTask.s@0)->[2] of type *sync.Mutex
+     ^ accessed for the first time: use t3 as field definition
+     ^ field t3 is a struct (allocating)
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   (*main.Stopper).StartTask.t5 = s(=(*main.Stopper).StartTask.s@0)->[2] of type *sync.Mutex
+     ^ field t5 previously defined as (*main.Stopper).StartTask.t3
+   (*main.Stopper).StartTask.t6 = s(=(*main.Stopper).StartTask.s@0)->[4] of type *sync.WaitGroup
+     ^ accessed for the first time: use t6 as field definition
+     ^ field t6 is a struct (allocating)
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+-- return from (*main.Stopper).StartTask (1 retvals)
+   # *s = *freevar s : **Stopper/main.main$1.s (not found, type=*main.Stopper)
+++ call (*main.Stopper).ShouldStop(s:caller[main.main$1.t2] = Undefined)
+   # t0 = s == nil:*Stopper
+   (*main.Stopper).ShouldStop.t1 = s(=Undefined)->[0] (external) of type *chan struct{}
+     ^ accessed for the first time: use t1 as field definition of type chan struct{}
+   # *t1 = *&s.stopper [#0]/(*main.Stopper).ShouldStop.t1 (not found, type=chan struct{})
+   # changetype t3 = t2 changetype <-chan struct{} <- chan struct{} (t2)
+          ^ unknown kind
+-- return from (*main.Stopper).ShouldStop (1 retvals)
+Called by: main.main$1()
+panic: Recv: Channel main.main$1.t3 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_cockroach_1055/src/main.go:78:18 is of wrong kind
+
+goroutine 268 [running]:
+github.com/nickng/dingo-hunter/cfsmextract.visitRecv(0x14002555da0, 0x1400255db00)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:466 +0xa14
+github.com/nickng/dingo-hunter/cfsmextract.visitInst({0x102b8b5b0?, 0x14002555da0?}, 0x1400255db00)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:56 +0xa74
+github.com/nickng/dingo-hunter/cfsmextract.visitBlock(0x102b837c0?, 0x1400255db00)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:29 +0x368
+github.com/nickng/dingo-hunter/cfsmextract.visitFunc(...)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/visit.go:41
+github.com/nickng/dingo-hunter/cfsmextract.(*CFSMExtract).Run(0x14002563d40)
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cfsmextract/cfsmextract.go:99 +0x73c
+created by github.com/nickng/dingo-hunter/cmd.extractCFSMs
+	/Users/knight_striker/Desktop/Project-Elective/dingo-hunter/cmd/cfsms.go:80 +0x44c

@@ -1,0 +1,108 @@
+ssabuild: 2026/10/31 14:26:40 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:40 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:40 Skip package: reflect (Reflection not supported for static analyser)
+ssabuild: 2026/10/31 14:26:40 Skip package: fmt (Recursive calls unrelated to communication)
+ssabuild: 2026/10/31 14:26:40 Skip package: time (Time not supported)
+ssabuild: 2026/10/31 14:26:40 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+   main.init.t0 = Alloc (struct@heap) of type *main.remoteLock (2 fields) at (unknown)
+   main.init.t1 = t0(=main.init.t0@0)->[1] of type *map[string]*sync.Mutex
+     ^ accessed for the first time: use t1 as field definition
+   # unhandled t2 = make map[string]*sync.Mutex 
+   # store *main.init.t1 = main.init.t2 of type map[string]*sync.Mutex
+   # store (global) *???.remoteURLLock = main.init.t0 of type *main.remoteLock
+++ call.toplevel main()
+   # t0 = Alloc new string (url) of type string
+   # store *main.main.t0 = ???."http://Foo.Bar/fo...":string of type string
+   main.main.t1 = Alloc (array@heap) of type *[2]bool (2 elems) at (unknown)
+   main.main.t2 = &t1(=main.main.t1@0)[&{4318753984 0}] of type *bool
+     ^ accessed for the first time: use t2 as elem definition
+   # store *main.main.t2 = ???.false:bool of type bool
+   main.main.t3 = &t1(=main.main.t1@0)[&{4318753984 1}] of type *bool
+     ^ accessed for the first time: use t3 as elem definition
+   # store *main.main.t3 = ???.true:bool of type bool
+++ call builtin len(t4) # TODO (handle builtin)
+   # t7 = t6 + 1:int
+   # t8 = t7 < t5
+   main.main.t9 = Alloc (struct@heap) of type *sync.WaitGroup (3 fields) at (unknown)
+   # t15 = t14 < 50:int
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+@@ queue go main.main$1(gor:caller[main.main.t14] = Undefined, capture wg = main.main.t9@0, capture url = Undefined)
+   # t12 = t14 + 1:int
+++ call (*sync.WaitGroup).Wait()
+-- return from (*sync.WaitGroup).Wait (0 retvals)
+
+main$1
+LOCATION: t11_745/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_hugo_3251/src/main.go:49:7
+   # t4 = t3 < 10:int
+   # *url = *freevar url : *string/main.main$1.url (not found, type=string)
+++ call main.resGetRemote(url:caller[main.main$1.t0] = Undefined)
+   # t0 = Alloc new string (url) of type string
+   # store *main.resGetRemote.t0 = main.resGetRemote.url of type string
+   main.resGetRemote.t1 = *remoteURLLock (global) of type **main.remoteLock
+    ^ i.e. main.init.t0@0
+   main.resGetRemote.t1 = *remoteURLLock (struct)
+   # *t0 = *new string (url) (not found)
+++ call (*main.remoteLock).URLLock(l:caller[main.resGetRemote.t1] = main.init.t0@0 struct, url:caller[main.resGetRemote.t2] = Undefined)
+   (*main.remoteLock).URLLock.t0 = l(=main.init.t0@0)->[0] of type *sync.RWMutex
+     ^ accessed for the first time: use t0 as field definition
+     ^ field t0 is a struct (allocating)
+++ call (*sync.RWMutex).Lock()
+-- return from (*sync.RWMutex).Lock (0 retvals)
+   (*main.remoteLock).URLLock.t2 = l(=main.init.t0@0)->[1] of type *map[string]*sync.Mutex
+     ^ field t2 previously defined as main.init.t1
+   # *t2 = *&l.m [#1]/(*main.remoteLock).URLLock.t2 (not found, type=map[string]*sync.Mutex)
+   # unhandled t4 = t3[url],ok
+   # t5 = extract t4 #0 of type *sync.Mutex
+     ^ local struct (used as definition)
+   # t6 = extract t4 #1 of type bool
+   (*main.remoteLock).URLLock.t10 = l(=main.init.t0@0)->[1] of type *map[string]*sync.Mutex
+     ^ field t10 previously defined as main.init.t1
+   # *t10 = *&l.m [#1]/(*main.remoteLock).URLLock.t10 (not found, type=map[string]*sync.Mutex)
+   # unhandled t12 = t11[url]
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   (*main.remoteLock).URLLock.t14 = l(=main.init.t0@0)->[0] of type *sync.RWMutex
+     ^ field t14 previously defined as (*main.remoteLock).URLLock.t0
+++ call (*sync.RWMutex).Unlock()
+-- return from (*sync.RWMutex).Unlock (0 retvals)
+   (*main.remoteLock).URLLock.t7 = l(=main.init.t0@0)->[1] of type *map[string]*sync.Mutex
+     ^ field t7 previously defined as main.init.t1
+   # *t7 = *&l.m [#1]/(*main.remoteLock).URLLock.t7 (not found, type=map[string]*sync.Mutex)
+   (*main.remoteLock).URLLock.t9 = Alloc (struct@heap) of type *sync.Mutex (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_hugo_3251/src/main.go:21:25
+   # unhandled t8[url] = t9
+-- return from (*main.remoteLock).URLLock (0 retvals)
+   # TODO (handle closure) make closure resGetRemote$1 [t0]
+-- return from main.resGetRemote (1 retvals)
+   # t2 = t1 != nil:error
+   main.main$1.t5 = Alloc (array@heap) of type *[1]any (1 elems) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_hugo_3251/src/main.go:54:59
+   main.main$1.t6 = &t5(=main.main$1.t5@0)[&{4318753984 0}] of type *any
+     ^ accessed for the first time: use t6 as elem definition
+   # changeinterface main.main$1.t7 = change interface any <- error (t1)
+   store update *main.main$1.t6 = main.main$1.t7 of type any
+++ call fmt.Errorf()
+-- Return from fmt.Errorf (builtin/ext) with a single value
+-- return from fmt.Errorf (1 retvals)
+++ call time.Sleep()
+-- return from time.Sleep (0 retvals)
+   # t11 = t3 + 1:int
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+2026/10/31 14:26:40 Analysis finished in 798.167µs
+ ----- Results ----- 
+# Channels
+
+# Role
+main t11_745 
+# Session
+  t11_745: t11_745; main.main$1#4; children: 2 &{(Empty); children: 2 &{(Empty); (*main.remoteLock).URLLock#2; ,(Empty); Goto (*main.remoteLock).URLLock#2; children: 2 &{(Empty); main.main$1#6; Goto main.main$1#4; ,(Empty); Goto main.main$1#6; }},(Empty); }
+  main: main; main.main#1; children: 2 &{(Empty); main.main#6; children: 2 &{(Empty); Goto main.main#6; ,(Empty); Goto main.main#1; },(Empty); }
+
+Total of nodes per role (2 roles)
+	9	: main
+	13	: t11_745
+2026/10/31 14:26:40 Machine 0 is empty
+2026/10/31 14:26:40 Machine 0 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_hugo_3251/out/blocking_hugo_3251_cfsms
+Total of 0 CFSMs (0 are channels)

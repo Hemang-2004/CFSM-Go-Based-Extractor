@@ -1,0 +1,77 @@
+
+-- Machines #0
+-- main.newWatchBroadcasts.t5@0
+.outputs
+.state graph
+q00 2 ? structLBRACERBRACE q02
+q00 3 ? structLBRACERBRACE q03
+q00 4 ? structLBRACERBRACE q04
+q01 3 ! STOP q01
+q01 3 ? STOP q01
+q01 2 ! STOP q01
+q01 2 ? STOP q01
+q01 4 ! STOP q01
+q01 4 ! STOP q01
+q01 4 ? STOP q01
+q01 3 ! STOP q01
+q01 2 ! STOP q01
+q02 3 ! structLBRACERBRACE q00
+q02 4 ! structLBRACERBRACE q00
+q03 2 ! structLBRACERBRACE q00
+q03 4 ! structLBRACERBRACE q00
+q04 2 ! structLBRACERBRACE q00
+q04 3 ! structLBRACERBRACE q00
+.marking q00
+.end
+
+-- Machines #1
+-- main.newWatchBroadcasts.t3@0
+.outputs
+.state graph
+q10 4 ? *mainDOTwatchBroadcast q13
+q10 2 ? *mainDOTwatchBroadcast q14
+q10 3 ? *mainDOTwatchBroadcast q12
+q11 3 ! STOP q11
+q11 4 ? STOP q11
+q11 2 ! STOP q11
+q11 3 ! STOP q11
+q11 2 ? STOP q11
+q11 3 ? STOP q11
+q11 4 ! STOP q11
+q11 2 ! STOP q11
+q11 4 ! STOP q11
+q12 2 ! *mainDOTwatchBroadcast q10
+q12 4 ! *mainDOTwatchBroadcast q10
+q13 3 ! *mainDOTwatchBroadcast q10
+q13 2 ! *mainDOTwatchBroadcast q10
+q14 3 ! *mainDOTwatchBroadcast q10
+q14 4 ! *mainDOTwatchBroadcast q10
+.marking q10
+.end
+
+-- Machines #2
+-- main
+.outputs
+.state graph
+q20 1 ! *mainDOTwatchBroadcast q21
+.marking q20
+.end
+
+-- Machines #3
+-- t6_576
+.outputs
+.state graph
+q30 1 ? *mainDOTwatchBroadcast q30
+q30 1 ? STOP q31
+q31 0 ! STOP q32
+.marking q30
+.end
+
+-- Machines #4
+-- stop_1460
+.outputs
+.state graph
+q40 1 ! STOP q41
+q41 0 ? structLBRACERBRACE q42
+.marking q40
+.end

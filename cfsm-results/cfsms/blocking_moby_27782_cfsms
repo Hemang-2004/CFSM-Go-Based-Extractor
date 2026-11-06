@@ -1,0 +1,39 @@
+
+-- Machines #0
+-- main.NewLogWatcher.t2@0
+.outputs
+.state graph
+q00 3 ? structLBRACERBRACE q02
+q01 3 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- main.NewWatcher.t2@0
+.outputs
+.state graph
+q10 3 ? mainDOTEvent q12
+q11 3 ? STOP q11
+.marking q10
+.end
+
+-- Machines #2
+-- main.NewWatcher.t4@0
+.outputs
+.state graph
+q20 3 ? structLBRACERBRACE q22
+q21 3 ? STOP q21
+.marking q20
+.end
+
+-- Machines #3
+-- readEvents_825
+.outputs
+.state graph
+q30 2 ? structLBRACERBRACE q31
+q30 1 ! STOP q32
+q30 1 ! mainDOTEvent q30
+q30 2 ? structLBRACERBRACE q33
+q33 1 ! STOP q34
+.marking q30
+.end

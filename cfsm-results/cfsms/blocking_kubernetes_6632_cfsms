@@ -1,0 +1,75 @@
+
+-- Machines #0
+-- main.NewIdleAwareFramer.t2@0
+.outputs
+.state graph
+q00 2 ? bool q02
+q00 3 ? bool q03
+q00 4 ? bool q04
+q01 3 ! STOP q01
+q01 3 ? STOP q01
+q01 2 ? STOP q01
+q01 4 ! STOP q01
+q01 2 ! STOP q01
+q01 4 ! STOP q01
+q01 4 ? STOP q01
+q01 2 ! STOP q01
+q01 3 ! STOP q01
+q02 3 ! bool q00
+q02 4 ! bool q00
+q03 2 ! bool q00
+q03 4 ! bool q00
+q04 2 ! bool q00
+q04 3 ! bool q00
+.marking q00
+.end
+
+-- Machines #1
+-- main.NewIdleAwareFramer.t6@0
+.outputs
+.state graph
+q10 2 ? bool q12
+q10 3 ? bool q13
+q10 4 ? bool q14
+q11 4 ! STOP q11
+q11 3 ? STOP q11
+q11 4 ! STOP q11
+q11 4 ? STOP q11
+q11 2 ! STOP q11
+q11 3 ! STOP q11
+q11 3 ! STOP q11
+q11 2 ! STOP q11
+q11 2 ? STOP q11
+q12 4 ! bool q10
+q12 3 ! bool q10
+q13 2 ! bool q10
+q13 4 ! bool q10
+q14 3 ! bool q10
+q14 2 ! bool q10
+.marking q10
+.end
+
+-- Machines #2
+-- WriteFrame_1658
+.outputs
+.state graph
+q20 0 ! bool q21
+.marking q20
+.end
+
+-- Machines #3
+-- t2_1568
+.outputs
+.state graph
+q30 1 ! bool q31
+.marking q30
+.end
+
+-- Machines #4
+-- monitor_1633
+.outputs
+.state graph
+q40 1 ? bool q41
+q41 0 ! STOP q42
+.marking q40
+.end

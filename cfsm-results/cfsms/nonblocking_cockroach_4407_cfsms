@@ -1,0 +1,17 @@
+
+-- Machines #0
+-- main.NewStopper.t2@0
+.outputs
+.state graph
+q00 1 ? structLBRACERBRACE q02
+q01 1 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- main
+.outputs
+.state graph
+q10 0 ! STOP q11
+.marking q10
+.end

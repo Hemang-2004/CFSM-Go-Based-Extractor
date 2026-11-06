@@ -1,0 +1,17 @@
+
+-- Machines #0
+-- main.Go.t2@0
+.outputs
+.state graph
+q00 1 ? error q02
+q01 1 ? STOP q01
+.marking q00
+.end
+
+-- Machines #1
+-- t3_437
+.outputs
+.state graph
+q10 0 ! error q11
+.marking q10
+.end

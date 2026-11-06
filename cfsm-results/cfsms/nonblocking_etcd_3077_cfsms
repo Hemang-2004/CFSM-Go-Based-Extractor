@@ -1,0 +1,127 @@
+
+-- Machines #0
+-- (*main.EtcdServer).start.t1@0
+.outputs
+.state graph
+q00 4 ? structLBRACERBRACE q02
+q00 5 ? structLBRACERBRACE q03
+q00 6 ? structLBRACERBRACE q04
+q01 5 ! STOP q01
+q01 6 ! STOP q01
+q01 5 ? STOP q01
+q01 6 ? STOP q01
+q01 5 ! STOP q01
+q01 4 ? STOP q01
+q01 6 ! STOP q01
+q01 4 ! STOP q01
+q01 4 ! STOP q01
+q02 5 ! structLBRACERBRACE q00
+q02 6 ! structLBRACERBRACE q00
+q03 4 ! structLBRACERBRACE q00
+q03 6 ! structLBRACERBRACE q00
+q04 4 ! structLBRACERBRACE q00
+q04 5 ! structLBRACERBRACE q00
+.marking q00
+.end
+
+-- Machines #1
+-- (*main.EtcdServer).start.t3@0
+.outputs
+.state graph
+q10 4 ? structLBRACERBRACE q12
+q10 5 ? structLBRACERBRACE q13
+q10 6 ? structLBRACERBRACE q14
+q11 6 ? STOP q11
+q11 4 ! STOP q11
+q11 5 ! STOP q11
+q11 6 ! STOP q11
+q11 5 ? STOP q11
+q11 6 ! STOP q11
+q11 4 ! STOP q11
+q11 4 ? STOP q11
+q11 5 ! STOP q11
+q12 5 ! structLBRACERBRACE q10
+q12 6 ! structLBRACERBRACE q10
+q13 6 ! structLBRACERBRACE q10
+q13 4 ! structLBRACERBRACE q10
+q14 4 ! structLBRACERBRACE q10
+q14 5 ! structLBRACERBRACE q10
+.marking q10
+.end
+
+-- Machines #2
+-- (*main.raftNode).run.t1@0
+.outputs
+.state graph
+q20 4 ? structLBRACERBRACE q22
+q20 5 ? structLBRACERBRACE q23
+q20 6 ? structLBRACERBRACE q24
+q21 6 ? STOP q21
+q21 5 ? STOP q21
+q21 6 ! STOP q21
+q21 4 ! STOP q21
+q21 4 ! STOP q21
+q21 5 ! STOP q21
+q21 4 ? STOP q21
+q21 5 ! STOP q21
+q21 6 ! STOP q21
+q22 5 ! structLBRACERBRACE q20
+q22 6 ! structLBRACERBRACE q20
+q23 4 ! structLBRACERBRACE q20
+q23 6 ! structLBRACERBRACE q20
+q24 4 ! structLBRACERBRACE q20
+q24 5 ! structLBRACERBRACE q20
+.marking q20
+.end
+
+-- Machines #3
+-- (*main.raftNode).run.t3@0
+.outputs
+.state graph
+q30 4 ? structLBRACERBRACE q32
+q30 5 ? structLBRACERBRACE q33
+q30 6 ? structLBRACERBRACE q34
+q31 4 ? STOP q31
+q31 5 ! STOP q31
+q31 6 ! STOP q31
+q31 5 ? STOP q31
+q31 4 ! STOP q31
+q31 4 ! STOP q31
+q31 6 ! STOP q31
+q31 6 ? STOP q31
+q31 5 ! STOP q31
+q32 5 ! structLBRACERBRACE q30
+q32 6 ! structLBRACERBRACE q30
+q33 4 ! structLBRACERBRACE q30
+q33 6 ! structLBRACERBRACE q30
+q34 4 ! structLBRACERBRACE q30
+q34 5 ! structLBRACERBRACE q30
+.marking q30
+.end
+
+-- Machines #4
+-- main
+.outputs
+.state graph
+q40 1 ! structLBRACERBRACE q41
+q40 0 ? structLBRACERBRACE q43
+q41 0 ? structLBRACERBRACE q42
+.marking q40
+.end
+
+-- Machines #5
+-- run_742
+.outputs
+.state graph
+q50 1 ? structLBRACERBRACE q51
+.marking q50
+.end
+
+-- Machines #6
+-- run_451
+.outputs
+.state graph
+q60 2 ? structLBRACERBRACE q61
+q61 3 ! STOP q62
+.marking q60
+.end

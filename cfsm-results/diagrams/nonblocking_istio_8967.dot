@@ -1,0 +1,22 @@
+digraph G {
+  rankdir=LR; fontname="Helvetica"; compound=true; nodesep=0.35; ranksep=0.55; pad=0.3; bgcolor="white";
+  node [fontname="Helvetica", fontsize=11, shape=circle, width=0.42, fixedsize=false, style=filled, fillcolor="#f8fafc", color="#475569"];
+  edge [fontname="Helvetica", fontsize=10, arrowsize=0.7];
+  labelloc=t; labeljust=l;
+  label=<<TABLE BORDER="0" CELLSPACING="2" CELLPADDING="3"><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="20"><B>GoBench istio #8967  (non-blocking)</B></FONT>  <FONT POINT-SIZE="13" COLOR="#475569">NonBlocking / Go-Specific / Misuse channel</FONT></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>Issue:</B> </FONT><BR ALIGN="LEFT"/><FONT POINT-SIZE="11">(no description in GoBench; see type)<BR ALIGN="LEFT"/></FONT></TD></TR><TR><TD ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><B>IPs detected:</B></TD><TD BGCOLOR="#6b7280"><FONT COLOR="white"> no interface pattern detected </FONT></TD></TR></TABLE></TD></TR><TR><TD ALIGN="LEFT"><FONT POINT-SIZE="11"><B>What the CFSM shows:</B></FONT><BR ALIGN="LEFT"/><FONT POINT-SIZE="11">• no unmatched send/receive: every channel has both ends. Any bug lies in ordering (needs the synthesis step)<BR ALIGN="LEFT"/></FONT></TD></TR><TR><TD> </TD></TR></TABLE>>;
+  subgraph cluster_g1 { label=<<B>machine 1: anonymous goroutine (t1)</B>>; labeljust=l; style="rounded,filled"; fillcolor="#f1f5f9"; color="#94a3b8"; fontsize=12;
+    g1_q10 [label="10" penwidth=2.4];
+    g1_q11 [label="11" shape=doublecircle];
+    g1_start [shape=point, width=0.08, style=invis, label=""];
+    g1_start -> g1_q10 [arrowsize=0.9, color="#475569"];
+    g1_q10 -> g1_q11 [label=<ch0 ? struct{}>, color="#15803d", fontcolor="#15803d", style=solid, penwidth=1.2];
+  }
+  subgraph cluster_g2 { label=<<B>machine 2: anonymous goroutine (t2)</B>>; labeljust=l; style="rounded,filled"; fillcolor="#f1f5f9"; color="#94a3b8"; fontsize=12;
+    g2_q20 [label="20" penwidth=2.4];
+    g2_q21 [label="21" shape=doublecircle];
+    g2_start [shape=point, width=0.08, style=invis, label=""];
+    g2_start -> g2_q20 [arrowsize=0.9, color="#475569"];
+    g2_q20 -> g2_q21 [label=<close(ch0)>, color="#b91c1c", fontcolor="#b91c1c", style=dashed, penwidth=1.2];
+  }
+  legend [shape=plain, style="", label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" COLOR="#94a3b8"><TR><TD COLSPAN="5" BGCOLOR="#e2e8f0"><B>Channels in this system</B> (channel relay machines 0–0 omitted from the drawing)</TD></TR><TR><TD><B>name</B></TD><TD><B>allocated in</B></TD><TD><B>sent by</B></TD><TD><B>received by</B></TD><TD><B>closed by</B></TD></TR><TR><TD ALIGN="LEFT">ch0</TD><TD ALIGN="LEFT">main.newFsSource.t2</TD><TD>–</TD><TD>1</TD><TD>2</TD></TR><TR><TD COLSPAN="5" ALIGN="LEFT"><FONT POINT-SIZE="10">Edge label  <FONT COLOR="#1d4ed8">ch ! msg</FONT> = send,  <FONT COLOR="#15803d">ch ? msg</FONT> = receive,  <FONT COLOR="#b91c1c">close(ch)</FONT> = STOP message.  Bold circle = start state, double circle = end state, numbers in machines = machine ids.</FONT></TD></TR></TABLE>>];
+}

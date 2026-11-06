@@ -1,0 +1,130 @@
+ssabuild: 2026/10/31 14:26:43 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:43 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:43 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+   # unhandled t0 = make map[string]*XdsConnection 0:int
+   # store (global) *???.adsClients = main.init.t0 of type map[string]*main.XdsConnection
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *sync.WaitGroup (3 fields) at (unknown)
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+@@ queue go main.main$1(, capture wg = main.main.t0@0)
+++ call (*sync.WaitGroup).Wait()
+-- return from (*sync.WaitGroup).Wait (0 retvals)
+
+main$1
+LOCATION: t2_1764/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:92:5
+   # t0 = Alloc new *MemServiceDiscovery (registry) of type *main.MemServiceDiscovery
+   main.main$1.t1 = Alloc (struct@heap) of type *main.MemServiceDiscovery (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:94:35
+   main.main$1.t2 = t1(=main.main$1.t1@0)->[0] of type *main.XDSUpdater
+     ^ accessed for the first time: use t2 as field definition
+   main.main$1.t3 = Alloc (struct@heap) of type *main.DiscoveryServer (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:95:32
+   main.main$1.t4 = t3(=main.main$1.t3@0)->[0] of type *main.ConfigGenerator
+     ^ accessed for the first time: use t4 as field definition
+   main.main$1.t5 = Alloc (struct@heap) of type *main.ConfigGeneratorImpl (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:96:42
+   main.main$1.t6 <-(struct/iface)- main.main$1.t5 make ConfigGenerator <- *ConfigGeneratorImpl (t5) = main.main$1.t5@0
+   store struct *main.main$1.t4 = main.main$1.t6 of type main.ConfigGenerator
+   main.main$1.t7 <-(struct/iface)- main.main$1.t3 make XDSUpdater <- *DiscoveryServer (t3) = main.main$1.t3@0
+   store struct *main.main$1.t2 = main.main$1.t7 of type main.XDSUpdater
+   store struct *main.main$1.t0 = main.main$1.t1 of type *main.MemServiceDiscovery
+@@ queue go main.main$1$1(, capture wg = main.main.t0@0, capture registry = main.main$1.t1@0)
+@@ queue go main.main$1$2(, capture wg = main.main.t0@0, capture registry = main.main$1.t1@0)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+main$1$1
+LOCATION: t8_1920/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:99:6
+   main.main$1$1.t0 = *registry (struct)
+   main.main$1$1.t1 = t0(=main.main$1.t1@0)->[0] of type *main.XDSUpdater
+     ^ field t1 previously defined as main.main$1.t3
+   main.main$1$1.t2 = *t1 (struct)
+   # main.main$1$1.t3 = main.main$1$1.t2.(*main.DiscoveryServer) impossible type assertion
+++ call (*main.DiscoveryServer).StreamAggregatedResources(s:caller[main.main$1$1.t3] = Undefined)
+++ call main.newXdsConnection()
+   main.newXdsConnection.t0 = Alloc (struct@heap) of type *main.XdsConnection (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:39:23
+   main.newXdsConnection.t1 = t0(=main.newXdsConnection.t0@0)->[0] of type **main.Proxy
+     ^ accessed for the first time: use t1 as field definition
+   main.newXdsConnection.t2 = Alloc (struct@heap) of type *main.Proxy (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:40:20
+   store struct *main.newXdsConnection.t1 = main.newXdsConnection.t2 of type *main.Proxy
+-- return from main.newXdsConnection (1 retvals)
+++ call (*main.DiscoveryServer).addCon(s:caller[(*main.DiscoveryServer).StreamAggregatedResources.s] = Undefined, con:caller[(*main.DiscoveryServer).StreamAggregatedResources.t0] = main.newXdsConnection.t0@0 struct)
+++ call (*sync.RWMutex).Lock()
+-- return from (*sync.RWMutex).Lock (0 retvals)
+   (*main.DiscoveryServer).addCon.t1 = *adsClients (global) of type *map[string]*main.XdsConnection
+    ^ i.e. ???.adsClients@0
+   # *adsClients = *main.adsClients/???.adsClients (not found, type=map[string]*main.XdsConnection)
+   # unhandled t1["1":string] = con
+++ call (*sync.RWMutex).Unlock()
+-- return from (*sync.RWMutex).Unlock (0 retvals)
+-- return from (*main.DiscoveryServer).addCon (0 retvals)
+++ call (*main.DiscoveryServer).pushRoute(s:caller[(*main.DiscoveryServer).StreamAggregatedResources.s] = Undefined, con:caller[(*main.DiscoveryServer).StreamAggregatedResources.t0] = main.newXdsConnection.t0@0 struct)
+++ call (*main.DiscoveryServer).generateRawRoutes(s:caller[(*main.DiscoveryServer).pushRoute.s] = Undefined, con:caller[(*main.DiscoveryServer).pushRoute.con] = main.newXdsConnection.t0@0 struct)
+   (*main.DiscoveryServer).generateRawRoutes.t0 = s(=Undefined)->[0] (external) of type *main.ConfigGenerator
+     ^ accessed for the first time: use t0 as field definition of type interface{BuildHTTPRoutes(node *main.Proxy)}
+   # *t0 = *&s.ConfigGenerator [#0]/(*main.DiscoveryServer).generateRawRoutes.t0 (not found, type=main.ConfigGenerator)
+   (*main.DiscoveryServer).generateRawRoutes.t2 = con(=main.newXdsConnection.t0@0)->[0] of type **main.Proxy
+     ^ field t2 previously defined as main.newXdsConnection.t2
+   (*main.DiscoveryServer).generateRawRoutes.t3 = *t2 (struct)
+++ invoke (*main.DiscoveryServer).generateRawRoutes.t1.func (main.ConfigGenerator).BuildHTTPRoutes(node *main.Proxy)
+-- return from (*main.DiscoveryServer).generateRawRoutes (0 retvals)
+-- return from (*main.DiscoveryServer).pushRoute (0 retvals)
+-- return from (*main.DiscoveryServer).StreamAggregatedResources (0 retvals)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+main$1$2
+LOCATION: t9_2029/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/src/main.go:103:6
+   main.main$1$2.t0 = *registry (struct)
+++ call (*main.MemServiceDiscovery).AddWorkload(sd:caller[main.main$1$2.t0] = main.main$1.t1@0 struct)
+   (*main.MemServiceDiscovery).AddWorkload.t0 = sd(=main.main$1.t1@0)->[0] of type *main.XDSUpdater
+     ^ field t0 previously defined as main.main$1.t3
+   (*main.MemServiceDiscovery).AddWorkload.t1 = *t0 (struct)
+++ invoke (*main.MemServiceDiscovery).AddWorkload.t1.func (main.XDSUpdater).WorkloadUpdate(), type=*main.DiscoveryServer
+     ^ finding method for type: *main.DiscoveryServer pkg: main name: WorkloadUpdate
+     ^ found function (*main.DiscoveryServer).WorkloadUpdate
+++ call (*main.DiscoveryServer).WorkloadUpdate(s:caller[(*main.MemServiceDiscovery).AddWorkload.t1] = main.main$1.t3@0 struct)
+++ call (*sync.RWMutex).RLock()
+-- return from (*sync.RWMutex).RLock (0 retvals)
+   (*main.DiscoveryServer).WorkloadUpdate.t1 = *adsClients (global) of type *map[string]*main.XdsConnection
+    ^ i.e. ???.adsClients@0
+   # *adsClients = *main.adsClients/???.adsClients (not found, type=map[string]*main.XdsConnection)
+   # unhandled t2 = range t1
+   # unhandled t3 = next t2
+   # t4 = extract t3 #0 of type bool
+   # t5 = extract t3 #2 of type *main.XdsConnection
+     ^ local struct (used as definition)
+   (*main.DiscoveryServer).WorkloadUpdate.t6 = t5(=(*main.DiscoveryServer).WorkloadUpdate.t5@0)->[0] (local) of type **main.Proxy
+     ^ accessed for the first time: use t6 as field definition
+   # *t6 = *&t5.modelNode [#0]/(*main.DiscoveryServer).WorkloadUpdate.t6 (not found, type=*main.Proxy)
+   (*main.DiscoveryServer).WorkloadUpdate.t8 = t7(=Undefined)->[0] (external) of type *main.Collection
+     ^ accessed for the first time: use t8 as field definition of type []struct{}
+   # store *(*main.DiscoveryServer).WorkloadUpdate.t8 = ???.nil:main.Collection of type main.Collection
+++ call (*sync.RWMutex).RUnlock()
+-- return from (*sync.RWMutex).RUnlock (0 retvals)
+-- return from (*main.DiscoveryServer).WorkloadUpdate (0 retvals)
+-- return from (*main.MemServiceDiscovery).AddWorkload (0 retvals)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+2026/10/31 14:26:43 Analysis finished in 610.208µs
+ ----- Results ----- 
+# Channels
+
+# Role
+t2_1764 t8_1920 t9_2029 main 
+# Session
+  main: main; 
+  t2_1764: t2_1764; 
+  t8_1920: t8_1920; 
+  t9_2029: t9_2029; (*main.DiscoveryServer).WorkloadUpdate#1; children: 2 &{(Empty); Goto (*main.DiscoveryServer).WorkloadUpdate#1; ,(Empty); }
+
+Total of nodes per role (4 roles)
+	1	: main
+	1	: t2_1764
+	1	: t8_1920
+	5	: t9_2029
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_istio_16742/out/nonblocking_istio_16742_cfsms
+Total of 0 CFSMs (0 are channels)

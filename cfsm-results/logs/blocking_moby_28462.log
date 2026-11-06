@@ -1,0 +1,123 @@
+ssabuild: 2026/10/31 14:26:41 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:41 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:41 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+++ call.toplevel main()
+++ call main.NewDaemonAndContainer()
+   main.NewDaemonAndContainer.t0 = Alloc (struct@heap) of type *main.Container (2 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:97:17
+   main.NewDaemonAndContainer.t1 = t0(=main.NewDaemonAndContainer.t0@0)->[1] of type **main.State
+     ^ accessed for the first time: use t1 as field definition
+   main.NewDaemonAndContainer.t2 = Alloc (struct@heap) of type *main.State (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:98:16
+   main.NewDaemonAndContainer.t3 = t2(=main.NewDaemonAndContainer.t2@0)->[0] of type **main.Health
+     ^ accessed for the first time: use t3 as field definition
+   main.NewDaemonAndContainer.t4 = Alloc (struct@heap) of type *main.Health (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:98:24
+   main.NewDaemonAndContainer.t5 = t4(=main.NewDaemonAndContainer.t4@0)->[0] of type *chan struct{}
+     ^ accessed for the first time: use t5 as field definition
+   New channel main.NewDaemonAndContainer.t6@0 { type: struct{} } by main.NewDaemonAndContainer.t6@0 at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:98:29
+               ^ in role main
+   store chan *main.NewDaemonAndContainer.t5 = main.NewDaemonAndContainer.t6 of type chan struct{}
+   store struct *main.NewDaemonAndContainer.t3 = main.NewDaemonAndContainer.t4 of type *main.Health
+   store struct *main.NewDaemonAndContainer.t1 = main.NewDaemonAndContainer.t2 of type *main.State
+   main.NewDaemonAndContainer.t7 = Alloc (struct@heap) of type *main.Daemon (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:100:14
+   main.NewDaemonAndContainer.t8 = t7(=main.NewDaemonAndContainer.t7@0)->[0] of type *main.Store
+     ^ accessed for the first time: use t8 as field definition
+     ^ field t8 is a struct (allocating)
+   main.NewDaemonAndContainer.t9 = t8(=main.NewDaemonAndContainer.t8@0)->[0] of type **main.Container
+     ^ accessed for the first time: use t9 as field definition
+   store struct *main.NewDaemonAndContainer.t9 = main.NewDaemonAndContainer.t0 of type *main.Container
+-- return from main.NewDaemonAndContainer (2 retvals)
+   main.main.t1 = extract t0[#0] == main.NewDaemonAndContainer.t7@0
+   main.main.t2 = extract t0[#1] == main.NewDaemonAndContainer.t0@0
+   main.main.t3 = t2(=main.NewDaemonAndContainer.t0@0)->[1] of type **main.State
+     ^ field t3 previously defined as main.NewDaemonAndContainer.t2
+   main.main.t4 = *t3 (struct)
+   main.main.t5 = t4(=main.NewDaemonAndContainer.t2@0)->[0] of type **main.Health
+     ^ field t5 previously defined as main.NewDaemonAndContainer.t4
+   main.main.t6 = *t5 (struct)
+++ call (*main.Health).OpenMonitorChannel(s:caller[main.main.t6] = main.NewDaemonAndContainer.t4@0 struct)
+   (*main.Health).OpenMonitorChannel.t0 = s(=main.NewDaemonAndContainer.t4@0)->[0] of type *chan struct{}
+     ^ field t0 previously defined as main.NewDaemonAndContainer.t6
+   (*main.Health).OpenMonitorChannel.t1 = *t0 (previously initalised Chan)
+-- return from (*main.Health).OpenMonitorChannel (1 retvals)
+@@ queue go main.monitor(c:caller[main.main.t2] = main.NewDaemonAndContainer.t0@0 struct, stop:caller[main.main.t7] = main.NewDaemonAndContainer.t6@0 channel main.NewDaemonAndContainer.t6@0)
+@@ queue go (*main.Daemon).StateChanged(d:caller[main.main.t1] = main.NewDaemonAndContainer.t7@0 struct)
+
+monitor
+LOCATION: monitor_2196/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:80:6
+   select main.NewDaemonAndContainer.t6@0 (1 states)
+    Recv monitor_2196←ᶜʰmain.NewDaemonAndContainer.t6@0nondet 
+    Default: (Empty)
+   | t1 = select t0 index
+  @ Switch to select branch #0
+   # t3 = extract t0 #2 of type struct{}
+     ^ local struct (used as definition)
+++ call main.handleProbeResult(c:caller[main.monitor.c] = main.NewDaemonAndContainer.t0@0 struct)
+   main.handleProbeResult.t0 = c(=main.NewDaemonAndContainer.t0@0)->[0] of type *sync.Mutex
+     ^ accessed for the first time: use t0 as field definition
+     ^ field t0 is a struct (allocating)
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+   main.handleProbeResult.t2 = c(=main.NewDaemonAndContainer.t0@0)->[0] of type *sync.Mutex
+     ^ field t2 previously defined as main.handleProbeResult.t0
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+-- return from main.handleProbeResult (0 retvals)
+
+StateChanged
+LOCATION: StateChanged_2254/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:48:18
+   (*main.Daemon).StateChanged.t0 = d(=main.NewDaemonAndContainer.t7@0)->[0] of type *main.Store
+     ^ field t0 previously defined as main.NewDaemonAndContainer.t8
+++ call (*main.Store).Get(s:caller[(*main.Daemon).StateChanged.t0] = main.NewDaemonAndContainer.t8@0 struct)
+   (*main.Store).Get.t0 = s(=main.NewDaemonAndContainer.t8@0)->[0] of type **main.Container
+     ^ field t0 previously defined as main.NewDaemonAndContainer.t0
+   (*main.Store).Get.t1 = *t0 (struct)
+-- return from (*main.Store).Get (1 retvals)
+   (*main.Daemon).StateChanged.t2 = t1(=main.NewDaemonAndContainer.t0@0)->[0] of type *sync.Mutex
+     ^ field t2 previously defined as main.handleProbeResult.t0
+++ call (*sync.Mutex).Lock()
+-- return from (*sync.Mutex).Lock (0 retvals)
+++ call (*main.Daemon).updateHealthMonitorElseBranch(d:caller[(*main.Daemon).StateChanged.d] = main.NewDaemonAndContainer.t7@0 struct, c:caller[(*main.Daemon).StateChanged.t1] = main.NewDaemonAndContainer.t0@0 struct)
+   (*main.Daemon).updateHealthMonitorElseBranch.t0 = c(=main.NewDaemonAndContainer.t0@0)->[1] of type **main.State
+     ^ field t0 previously defined as main.NewDaemonAndContainer.t2
+   (*main.Daemon).updateHealthMonitorElseBranch.t1 = *t0 (struct)
+   (*main.Daemon).updateHealthMonitorElseBranch.t2 = t1(=main.NewDaemonAndContainer.t2@0)->[0] of type **main.Health
+     ^ field t2 previously defined as main.NewDaemonAndContainer.t4
+   (*main.Daemon).updateHealthMonitorElseBranch.t3 = *t2 (struct)
+++ call (*main.Health).CloseMonitorChannel(s:caller[(*main.Daemon).updateHealthMonitorElseBranch.t3] = main.NewDaemonAndContainer.t4@0 struct)
+   (*main.Health).CloseMonitorChannel.t0 = s(=main.NewDaemonAndContainer.t4@0)->[0] of type *chan struct{}
+     ^ field t0 previously defined as main.NewDaemonAndContainer.t6
+   (*main.Health).CloseMonitorChannel.t1 = *t0 (previously initalised Chan)
+   # t2 = t1 != nil:chan struct{}
+   (*main.Health).CloseMonitorChannel.t3 = s(=main.NewDaemonAndContainer.t4@0)->[0] of type *chan struct{}
+     ^ field t3 previously defined as main.NewDaemonAndContainer.t6
+   (*main.Health).CloseMonitorChannel.t4 = *t3 (previously initalised Chan)
+   (*main.Health).CloseMonitorChannel.t5 = Alloc (struct@local) of type *struct{} (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/src/main.go:76:21
+   (*main.Health).CloseMonitorChannel.t6 = *t5 (struct)
+  Send StateChanged_2254→ᶜʰmain.NewDaemonAndContainer.t6@0 
+-- return from (*main.Health).CloseMonitorChannel (0 retvals)
+-- return from (*main.Daemon).updateHealthMonitorElseBranch (0 retvals)
+   (*main.Daemon).StateChanged.t5 = t1(=main.NewDaemonAndContainer.t0@0)->[0] of type *sync.Mutex
+     ^ field t5 previously defined as main.handleProbeResult.t0
+++ call (*sync.Mutex).Unlock()
+-- return from (*sync.Mutex).Unlock (0 retvals)
+2026/10/31 14:26:41 Analysis finished in 588.792µs
+ ----- Results ----- 
+# Channels
+main.NewDaemonAndContainer.t6@0 
+# Role
+main monitor_2196 StateChanged_2254 
+# Session
+  StateChanged_2254: StateChanged_2254; children: 2 &{(Empty); Send StateChanged_2254→ᶜʰmain.NewDaemonAndContainer.t6@0 ; (*main.Health).CloseMonitorChannel#2; ,(Empty); Goto (*main.Health).CloseMonitorChannel#2; }
+  main: main; NewChan main.NewDaemonAndContainer.t6@0 of type struct{}; 
+  monitor_2196: monitor_2196; main.monitor#1; children: 2 &{Recv monitor_2196←ᶜʰmain.NewDaemonAndContainer.t6@0nondet ; ,(Empty); Goto main.monitor#1; }
+
+Total of nodes per role (3 roles)
+	2	: main
+	5	: monitor_2196
+	6	: StateChanged_2254
+2026/10/31 14:26:41 Machine 2 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/blocking_moby_28462/out/blocking_moby_28462_cfsms
+Total of 3 CFSMs (1 are channels)
+	0	= main.NewDaemonAndContainer.t6@0 (channel)
+	1	= StateChanged_2254
+	2	= monitor_2196

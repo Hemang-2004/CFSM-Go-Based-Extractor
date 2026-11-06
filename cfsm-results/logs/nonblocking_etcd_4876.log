@@ -1,0 +1,76 @@
+ssabuild: 2026/10/31 14:26:43 Program loaded and type checked
+ssabuild: 2026/10/31 14:26:43 Skip package: sync (Atomics confuse analyser)
+ssabuild: 2026/10/31 14:26:43 Skip package: time (Time not supported)
+ssabuild: 2026/10/31 14:26:43 Skip package: runtime (Runtime contains threads that are not user related)
+++ call.toplevel init()
+   # store (global) *???.ProgressReportInterval = ???.10000000000:time.Duration of type time.Duration
+++ call.toplevel main()
+   main.main.t0 = Alloc (struct@heap) of type *sync.WaitGroup (3 fields) at (unknown)
+++ call (*sync.WaitGroup).Add()
+-- return from (*sync.WaitGroup).Add (0 retvals)
+@@ queue go main.main$1(, capture wg = main.main.t0@0)
+++ call (*sync.WaitGroup).Wait()
+-- return from (*sync.WaitGroup).Wait (0 retvals)
+
+main$1
+LOCATION: t2_667/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:46:5
+   # t0 = Alloc new *watchServer (w) of type *main.watchServer
+   main.main$1.t1 = Alloc (struct@heap) of type *main.watchServer (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:48:20
+   store struct *main.main$1.t0 = main.main$1.t1 of type *main.watchServer
+@@ queue go main.main$1$1(, capture wg = main.main.t0@0)
+@@ queue go main.main$1$2(, capture wg = main.main.t0@0, capture w = main.main$1.t1@0)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+main$1$1
+LOCATION: t2_721/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:49:6
+   # store (global) *???.ProgressReportInterval = ???.3000000000:time.Duration of type time.Duration
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+main$1$2
+LOCATION: t3_836/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:54:6
+   main.main$1$2.t0 = *w (struct)
+   main.main$1$2.t1 = Alloc (struct@heap) of type *main.watchWatchServer (1 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:56:29
+   main.main$1$2.t2 <-(struct/iface)- main.main$1$2.t1 make Watch_WatchServer <- *watchWatchServer (t1) = main.main$1$2.t1@0
+++ call (*main.watchServer).Watch(ws:caller[main.main$1$2.t0] = main.main$1.t1@0 struct, stream:caller[main.main$1$2.t2] = main.main$1$2.t1@0 struct)
+   (*main.watchServer).Watch.t0 = Alloc (struct@heap) of type *main.serverWatchStream (0 fields) at /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:38:2
+@@ queue go (*main.serverWatchStream).sendLoop(sws:caller[(*main.watchServer).Watch.t0] = (*main.watchServer).Watch.t0@0 struct)
+-- return from (*main.watchServer).Watch (0 retvals)
+++ call (*sync.WaitGroup).Done()
+-- return from (*sync.WaitGroup).Done (0 retvals)
+
+sendLoop
+LOCATION: sendLoop_596/private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/src/main.go:31:31
+   (*main.serverWatchStream).sendLoop.t0 = *ProgressReportInterval (global) of type *time.Duration
+    ^ i.e. ???.ProgressReportInterval@0
+   # *ProgressReportInterval = *main.ProgressReportInterval/???.ProgressReportInterval (not found, type=time.Duration)
+++ call time.NewTicker()
+-- Return from time.NewTicker (builtin/ext) with a single value
+-- return from time.NewTicker (1 retvals)
+2026/10/31 14:26:43 Analysis finished in 19.595458ms
+ ----- Results ----- 
+# Channels
+
+# Role
+main t2_667 t2_721 t3_836 sendLoop_596 
+# Session
+  main: main; 
+  t2_667: t2_667; 
+  t2_721: t2_721; 
+  t3_836: t3_836; 
+  sendLoop_596: sendLoop_596; 
+
+Total of nodes per role (5 roles)
+	1	: main
+	1	: t2_667
+	1	: t2_721
+	1	: t3_836
+	1	: sendLoop_596
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+2026/10/31 14:26:43 Machine 0 is empty
+CFSMs written to /private/tmp/claude-501/-Users-knight-striker-Desktop-Project-Elective/d6d09d24-b258-40dc-a7e8-ea969cbcc309/scratchpad/work/runs/nonblocking_etcd_4876/out/nonblocking_etcd_4876_cfsms
+Total of 0 CFSMs (0 are channels)

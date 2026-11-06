@@ -1,0 +1,104 @@
+bug	status	cfsms	channel_cfsms	note
+blocking_cockroach_10214	OK	0	0	
+blocking_cockroach_1055	FAIL	-	-	panic: Recv: Channel main.main$1.t3 at main.go:78:18 is of wrong kind
+blocking_cockroach_10790	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_cockroach_13197	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_cockroach_13755	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_cockroach_1462	OK	4	3	
+blocking_cockroach_16167	OK	0	0	
+blocking_cockroach_18101	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_cockroach_2448	OK	5	3	
+blocking_cockroach_24808	OK	3	2	
+blocking_cockroach_25456	OK	2	1	
+blocking_cockroach_35073	OK	3	1	
+blocking_cockroach_35931	OK	3	2	
+blocking_cockroach_3710	OK	0	0	
+blocking_cockroach_584	OK	0	0	
+blocking_cockroach_6181	OK	0	0	
+blocking_cockroach_7504	OK	0	0	
+blocking_cockroach_9935	OK	0	0	
+blocking_etcd_10492	OK	0	0	
+blocking_etcd_5509	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_etcd_6708	OK	0	0	
+blocking_etcd_6857	OK	8	5	
+blocking_etcd_6873	OK	5	2	
+blocking_etcd_7443	OK	6	3	
+blocking_etcd_7492	FAIL	-	-	panic: Select: Channel (*main.simpleTokenTTLKeeper).run.t4 at main.go:55:22 is undefined
+blocking_etcd_7902	OK	1	1	
+blocking_grpc_1275	FAIL	-	-	panic: Select: Channel main.testInflightStreamClosing.t11 at main.go:87:17 is undefined
+blocking_grpc_1353	FAIL	-	-	panic: Builtin close() called with non-channel
+blocking_grpc_1424	FAIL	-	-	panic: Builtin close() called with non-channel
+blocking_grpc_1460	OK	3	1	
+blocking_grpc_3017	OK	3	1	
+blocking_grpc_660	OK	5	2	
+blocking_grpc_795	OK	0	0	
+blocking_grpc_862	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_hugo_3251	OK	0	0	
+blocking_hugo_5379	OK	0	0	
+blocking_istio_16224	OK	5	3	
+blocking_istio_17860	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_istio_18454	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_kubernetes_10182	OK	4	1	
+blocking_kubernetes_11298	OK	5	2	
+blocking_kubernetes_13135	FAIL	-	-	panic: runtime error: invalid memory address or nil pointer dereference
+blocking_kubernetes_1321	FAIL	-	-	panic: Builtin close() called with non-channel
+blocking_kubernetes_25331	FAIL	-	-	panic: Select: Channel context.propagateCancel.t3 at /Users/knight_striker/sdk/go1.19.13/src/context/context.g
+blocking_kubernetes_26980	OK	5	2	
+blocking_kubernetes_30872	FAIL	-	-	panic: runtime error: invalid memory address or nil pointer dereference
+blocking_kubernetes_38669	OK	4	2	
+blocking_kubernetes_5316	FAIL	-	-	panic: Select: Channel main.finishRequest.t8 at main.go:35:19 is undefined
+blocking_kubernetes_58107	FAIL	-	-	panic: runtime error: invalid memory address or nil pointer dereference
+blocking_kubernetes_62464	OK	0	0	
+blocking_kubernetes_6632	OK	5	2	
+blocking_kubernetes_70277	OK	4	3	
+blocking_moby_17176	FAIL	-	-	panic: Select: Channel main.testDevmapperLockReleasedDeviceDeletion.t8 at main.go:55:19 is undefined
+blocking_moby_21233	FAIL	-	-	panic: Builtin close() called with non-channel
+blocking_moby_25384	OK	0	0	
+blocking_moby_27782	OK	4	3	
+blocking_moby_28462	OK	3	1	
+blocking_moby_29733	OK	4	2	
+blocking_moby_30408	OK	3	1	
+blocking_moby_33293	OK	2	1	
+blocking_moby_33781	FAIL	-	-	panic: Select: Channel main.monitor.t0 at main.go:28:20 is undefined
+blocking_moby_36114	OK	0	0	
+blocking_moby_4395	OK	2	1	
+blocking_moby_4951	OK	0	0	
+blocking_moby_7559	FAIL	-	-	C:11:20: Incomplete not declared by package cgo
+blocking_serving_2137	OK	7	5	
+blocking_syncthing_4829	OK	0	0	
+blocking_syncthing_5795	FAIL	-	-	panic: Select: Channel (*main.rawConnection).readerLoop.t1 at main.go:53:12 is undefined
+nonblocking_cockroach_35501	OK	0	0	
+nonblocking_cockroach_4407	OK	2	1	
+nonblocking_etcd_3077	OK	7	4	
+nonblocking_etcd_4876	OK	0	0	
+nonblocking_etcd_8194	FAIL	-	-	panic: Select: Channel (*main.lessor).runLoop.t25 at main.go:38:14 is undefined
+nonblocking_etcd_9446	OK	0	0	
+nonblocking_grpc_1687	FAIL	-	-	main.go:103:36: undeclared name: t
+nonblocking_grpc_1748	OK	0	0	
+nonblocking_grpc_2371	OK	2	1	
+nonblocking_grpc_3090	OK	0	0	
+nonblocking_istio_16742	OK	0	0	
+nonblocking_istio_8144	OK	0	0	
+nonblocking_istio_8214	OK	0	0	
+nonblocking_istio_8967	OK	3	1	
+nonblocking_kubernetes_13058	OK	3	1	
+nonblocking_kubernetes_49404	OK	0	0	
+nonblocking_kubernetes_70892	FAIL	-	-	panic: Select: Channel main.ParallelizeUntil$1.t4 at main.go:35:12 is undefined
+nonblocking_kubernetes_77796	OK	0	0	
+nonblocking_kubernetes_79631	OK	2	1	
+nonblocking_kubernetes_80284	OK	0	0	
+nonblocking_kubernetes_81091	FAIL	-	-	panic: Select: Channel main.ParallelizeUntil$1.t4 at main.go:82:12 is undefined
+nonblocking_kubernetes_81148	OK	3	1	
+nonblocking_kubernetes_82239	OK	3	1	
+nonblocking_kubernetes_82550	OK	0	0	
+nonblocking_kubernetes_88331	OK	2	1	
+nonblocking_kubernetes_89164	OK	0	0	
+nonblocking_moby_18412	FAIL	-	-	panic: Select: Channel (*os/exec.Cmd).Start.t54 at /Users/knight_striker/sdk/go1.19.13/src/os/exec/exec.go:498
+nonblocking_moby_22941	OK	0	0	
+nonblocking_moby_27037	OK	0	0	
+nonblocking_serving_3068	FAIL	-	-	main.go:75:3: undeclared name: t
+nonblocking_serving_3148	OK	0	0	
+nonblocking_serving_4908	FAIL	-	-	main.go:130:3: undeclared name: t
+nonblocking_serving_5865	OK	0	0	
+nonblocking_serving_6171	FAIL	-	-	main.go:139:3: undeclared name: t
+nonblocking_serving_6472	OK	3	2	

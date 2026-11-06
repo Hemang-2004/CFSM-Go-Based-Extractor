@@ -1,0 +1,2 @@
+/Users/knight_striker/sdk/go1.19.13/src/net/C:11:20: Incomplete not declared by package cgo
+2026/10/31 14:26:46 couldn't load packages due to errors: net
