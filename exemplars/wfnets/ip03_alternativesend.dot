@@ -1,0 +1,19 @@
+digraph PetriNet {
+  rankdir=LR;
+  node [fontname="Arial"];
+  label="IP-3 Alternative send";
+  labelloc=t; fontsize=14;
+
+  p0 [shape=doublecircle, style=filled, fillcolor="#90EE90", label="start (1)"];
+  p1 [shape=circle, style=filled, fillcolor="#ADD8E6", label="main_ready"];
+  p6 [shape=circle, style=filled, fillcolor="#ADD8E6", label="after_select"];
+  p3 [shape=doublecircle, style=filled, fillcolor="#ADD8E6", label="end"];
+
+  t0 [shape=box, style=filled, fillcolor="#FFD700", label="select choice"];
+  t1 [shape=box, style=filled, fillcolor="#FFD700", label="finish"];
+
+  p0 -> t0;
+  t0 -> p6;
+  p2 -> t1;
+  t1 -> p3;
+}
